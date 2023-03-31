@@ -9,10 +9,9 @@ export const Login = () => {
 
 
     const Autorisation = () =>{
-        axiosInstance.get<{ menu: any[] }>('authorization/members/login')
+        axiosInstance.post<{menu: any[] }>('authorization/members/login')
         .then((res) => res.data.menu)
         .catch(() => [])
-        console.log()
     }
 
     return (
