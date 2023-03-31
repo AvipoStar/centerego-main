@@ -1,0 +1,48 @@
+.FormInputBar{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    margin-top: 20px;
+}
+.FormInputBar input{
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    color: black;
+    padding-left: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    display: flex;
+    outline: none;
+    border: 0;
+    border: 2px solid #5d1c5f;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+.FormInputBar input::placeholder {
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    color: #3e3636;
+    opacity: 0.5;
+  }
+.FormInputBar__Button{
+    width: 100%;
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    color: #ffffff;
+    background: #5d1c5f;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    cursor: pointer;
+}

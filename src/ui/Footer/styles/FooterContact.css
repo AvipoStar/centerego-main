@@ -1,0 +1,27 @@
+.FooterContact{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+.FooterContact__Block{
+
+}
+.FooterContact__Block__Title{
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: right;
+    color: #3E3636;
+    opacity: 0.6;
+}
+.FooterContact__Block__Value{
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    text-align: right;
+    color: #3E3636;
+    white-space: nowrap;
+}

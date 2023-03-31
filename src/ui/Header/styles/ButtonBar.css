@@ -1,0 +1,20 @@
+.HeaderButtonBar {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+}
+.HeaderButtonBar__Item {
+  text-decoration: none;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  color: #ffffff;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+  background: #5d1c5f;
+  border-radius: 10px;
+}

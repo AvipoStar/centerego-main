@@ -1,0 +1,54 @@
+.FormStarDescription {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+.FormStarDescription__Title {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  color: #3e3636;
+}
+.FormStarDescription__List {
+  display: flex;
+  gap: 45px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.FormStarDescription__List__Item {
+  display: flex;
+  gap: 2px;
+  flex-direction: column;
+  align-items: center;
+}
+.FormStarDescription__List__Item__ImageList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.FormStarDescription__List__Item__ImageList img {
+}
+.FormStarDescription__List__Item__Title {
+  text-align: center;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #3e3636;
+}
+.FormStarDescription__Description {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  text-align: center;
+  color: #3e3636;
+}

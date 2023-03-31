@@ -1,0 +1,175 @@
+.MainForm {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 52px;
+  padding-bottom: 80px;
+}
+.MainForm__Title {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  color: #3e3636;
+  display: flex;
+  justify-content: center;
+}
+.MainForm__InputBar {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+}
+.MainForm__InputBar input {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  color: black;
+  padding-left: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  display: flex;
+  outline: none;
+  border: 0;
+  border: 2px solid #5d1c5f;
+  border-radius: 10px;
+  min-width: 705px;
+}
+.MainForm__InputBar input::placeholder {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  color: #3e3636;
+  opacity: 0.5;
+}
+.MainForm__Range {
+  width: 100%;
+}
+.MainForm__Range__Title {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 25px;
+  opacity: 0.5;
+  margin-left: 16px;
+  margin-right: auto;
+}
+.MainForm__Button {
+  width: 100%;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  color: #ffffff;
+  background: #5d1c5f;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  cursor: pointer;
+}
+.MainForm__Range {
+  padding-left: 6px;
+  padding-right: 6px;
+  box-sizing: border-box;
+}
+
+.MainForm__Range input[type="range"] {
+  -webkit-appearance: none;
+  /* margin-right: 15px; */
+  width: 100%;
+  height: 2px;
+  background: #5d1c5f;
+  border-radius: 5px;
+  background-image: #5d1c5f;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  margin-top: 35px;
+}
+
+.MainForm__Range input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #5d1c5f;
+  cursor: pointer;
+  box-shadow: 0 0 2px 0 #555;
+  transition: background 0.3s ease-in-out;
+}
+
+.MainForm__Range input[type="range"]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+.MainForm__Range__Num {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: #3e3636;
+  background-color: rgba(93, 28, 95, 0.5);
+  border-radius: 2px;
+  min-width: 24px;
+  position: absolute;
+  top: -35px;
+  box-sizing: border-box;
+  padding-left: 4px;
+  padding-right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.MainForm__InputBar__Select {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  color: black;
+  padding-left: 18px;
+  padding-right: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  display: flex;
+  outline: none;
+  border: 0;
+  border: 2px solid #5d1c5f;
+  border-radius: 10px;
+  min-width: 705px;
+}
+.MainForm__InputBar__Select__Place {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  color: rgba(62, 54, 54, 0.5);
+}
+.MainForm__InputBar__Option {
+  color: black;
+}
+.MainForm__Range__Band{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+
+  font-family: 'Manrope';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+color: #3E3636;
+opacity: 0.5;
+}
+.MainForm__Range__Band__Num{
+
+}

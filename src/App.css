@@ -1,0 +1,47 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.App__Actual {
+  max-width: 1180px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+.App__Button {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  /* z-index: 99; */
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  color: #ffffff;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+  background-color: #5d1c5f7c;
+  border-radius: 10px;
+}
+
+.App__Button:hover {
+  background-color: #5d1c5f;
+}

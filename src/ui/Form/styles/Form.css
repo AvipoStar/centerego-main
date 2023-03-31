@@ -1,0 +1,45 @@
+.Form {
+  display: flex;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 124px;
+  padding-right: 124px;
+  background: #ffffff;
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 852px;
+  width: 100%;
+  box-sizing: content-box;
+}
+.Form__Absolute {
+  z-index: 3;
+  display: flex;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+.Form__Absolute__Background {
+  z-index: 3;
+  display: flex;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+  opacity: 0.2;
+}
+@media screen and (max-height: 1100px) {
+  .Form__Absolute {
+    align-items: flex-start;
+  }
+}

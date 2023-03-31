@@ -1,0 +1,96 @@
+.Registration{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Registration__Data{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.Registration__Data__InputBar{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+.Registration__Data__InputBar input{
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    color: black;
+    padding-left: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    display: flex;
+    outline: none;
+    border: 0;
+    border: 2px solid #5d1c5f;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.Registration__Data__InputBar input::placeholder{
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    color: #3e3636;
+    opacity: 0.5;
+}
+.Registration__Data__InputBar__Button{
+    color: white;
+    padding-left: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background: #5D1C5F;
+    display: flex;
+    outline: none;
+    border: 2px solid #5d1c5f;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+}
+.Registration__Data__Title{
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    
+    
+    /* Текст */
+    
+    color: #3E3636;
+}
+.Registration__Data__Button__One{
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    color: #3E3636;
+    cursor: pointer;
+    text-decoration: none;
+}
+.Registration__Data__Button__Two{
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    color: #3E3636;
+    opacity: 0.5;
+    cursor: pointer;
+    text-decoration: none;
+}

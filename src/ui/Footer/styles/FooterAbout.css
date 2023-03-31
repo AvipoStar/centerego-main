@@ -1,0 +1,40 @@
+.FooterAbout{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.FooterAbout__Full{
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    color: #3E3636;
+}
+.FooterAbout__Website{
+    text-decoration: none;
+    font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+margin-top: 2px;
+color: #3E3636;
+}
+.FooterAbout__LinkTitle{
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: #3E3636;
+    opacity: 0.6;
+    margin-top: 13px;
+}
+.FooterAbout__LinkList{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 4px;
+}
+.FooterAbout__LinkList img{
+    width: 36px;
+}

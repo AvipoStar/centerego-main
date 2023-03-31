@@ -1,0 +1,22 @@
+.MainAbout {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  margin-top: 40px;
+}
+.MainAbout__Title {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  color: #3e3636;
+}
+.MainAbout__Description {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  color: #3e3636;
+}

@@ -1,0 +1,11 @@
+.BigImage{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55%;
+    height: 100%;
+    overflow: hidden;
+}
+.BigImage img{
+    height: 100%;
+}

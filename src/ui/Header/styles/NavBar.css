@@ -1,0 +1,18 @@
+.HeaderNavBar {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+}
+.HeaderNavBar__Item {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  color: #3e3636;
+  cursor: pointer;
+}
+
+.HeaderNavBar__Item:hover {
+  /* font-weight: 600; */
+}

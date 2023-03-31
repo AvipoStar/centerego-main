@@ -1,0 +1,42 @@
+.MainConsultations {
+  display: flex;
+  gap: 16px;
+  margin-top: 40px;
+  width: 100%;
+  flex-direction: column;
+}
+.MainConsultations__Title {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 38px;
+  color: #3e3636;
+}
+.MainConsultations__List {
+  display: flex;
+  gap: 16px 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-between;
+}
+.MainConsultations__Footer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.MainConsultations__Footer__Button{
+    background: rgba(93, 28, 95, 0.5);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    color: #3e3636;
+}

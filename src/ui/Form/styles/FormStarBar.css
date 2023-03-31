@@ -1,0 +1,30 @@
+.FormStarBar {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+.FormStarBar__Item {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  align-items: center;
+}
+.FormStarBar__Item__Title {
+  width: 100%;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  color: #3e3636;
+}
+.FormStarBar__Item__Rating svg{
+    margin-right: 20px;
+}
+.FormStarBar__Item__Rating svg:last-child{
+    margin-right: 0px;
+}
