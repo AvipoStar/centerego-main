@@ -48,7 +48,7 @@ export const MainForm = (params: IMainForm) => {
           onChange={(event: any) => {
             setValue({ ...value, ["phone"]: event.target.value });
           }}
-          placeholder="Номер телефон"
+          placeholder="Номер телефона"
         />
         <input
           type="text"

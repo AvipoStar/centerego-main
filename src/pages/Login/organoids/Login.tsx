@@ -1,16 +1,25 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import {useStore} from "effector-react"
+import { NavLink } from "react-router-dom"; 
 import "../styles/Login.css"
 import { BigImage } from "../../../ui/BigImage/organoids/BigImage";
-import { axiosInstance } from "../../../common/axio/axiosInstance2";
-
+import { axiosInstance, AuthResponse } from '../../../common/axio/axiosInstance2';
+import { $accessToken,setaccessToken } from "../../../common/axio/axiosInstance2"
+import { $refreshToken,setrefreshToken } from "../../../common/axio/axiosInstance2"
+    
 export const Login = () => {
-    const [value, setValue] = useState({ password: "", phone: "", mail: "" })
+    const [userData, setValue] = useState({ password: "", phone: "", mail: "" })
 
-
+    const Token = useStore($accessToken);
+    const RToken = useStore($refreshToken);
+    
     const Autorisation = () =>{
-        axiosInstance.post<{menu: any[] }>('authorization/members/login')
-        .then((res) => res.data.menu)
+        axiosInstance.post<AuthResponse>('members/login',
+        {
+            'emailOrPhone': {...userData.mail.toString},
+            'password': {...userData.password.toString},
+        })
+        .then((response) => {console.log(response)})
         .catch(() => [])
     }
 
@@ -21,9 +30,18 @@ export const Login = () => {
                     Авторизация
                 </div>
                 <div className="Login__Data__InputBar">
-                    <input type="text" value={value.phone || ""} onChange={(event: any) => { setValue({ ...value, ["phone"]: event.target.value }) }} placeholder="Номер телефон" />
-                    <input type="text" value={value.mail || ""} onChange={(event: any) => { setValue({ ...value, ["mail"]: event.target.value }) }} placeholder="E-mail" />
-                    <input type="text" value={value.password || ""} onChange={(event: any) => { setValue({ ...value, ["password"]: event.target.value }) }} placeholder="Пароль" />
+                    <input 
+                        type="text"
+                        value={userData.mail || userData.phone} 
+                        onChange={(event: any) => { setValue({ ...userData, ["mail"]: event.target.value, ["phone"]:event.target.value }) }}
+                        placeholder="E-mail или телефон" 
+                    />
+                    <input
+                        type="password" 
+                        value={userData.password || ""} 
+                        onChange={(event: any) => { setValue({ ...userData, ["password"]: event.target.value })}}
+                        placeholder="Пароль" 
+                       />
                     <div onClick={Autorisation} className="Login__Data__InputBar__Button">
                         Авторизоваться
                     </div>
@@ -39,3 +57,7 @@ export const Login = () => {
         </div>
     );
 };
+
+
+
+
