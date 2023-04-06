@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {useStore} from "effector-react"
+import { useStore } from "effector-react"
 import { NavLink } from "react-router-dom"; 
 import "../styles/Login.css"
 import { BigImage } from "../../../ui/BigImage/organoids/BigImage";
@@ -16,8 +16,8 @@ export const Login = () => {
     const Autorisation = () =>{
         axiosInstance.post<AuthResponse>('members/login',
         {
-            'emailOrPhone': {...userData.mail.toString},
-            'password': {...userData.password.toString},
+            'emailOrPhone': 'test@mail.com',
+            'password': '12345678',
         })
         .then((response) => {console.log(response)})
         .catch(() => [])

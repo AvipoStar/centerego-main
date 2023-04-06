@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { createStore, createEvent, createEffect, sample } from 'effector';
+import { createStore, createEvent} from 'effector';
 
 
 export const $accessToken = createStore("");
