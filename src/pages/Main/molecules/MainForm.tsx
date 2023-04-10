@@ -4,6 +4,8 @@ export interface IMainForm {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   show: boolean;
   requestRef: any;
+  setShowLK: React.Dispatch<React.SetStateAction<boolean>>;
+  showLK: boolean;
 }
 export const MainForm = (params: IMainForm) => {
   const [value, setValue] = useState({
@@ -123,6 +125,15 @@ export const MainForm = (params: IMainForm) => {
           className="MainForm__Button"
         >
           Отправить заявку
+        </div>
+        <div
+          onClick={() => {
+            onSubmit();
+            params.setShowLK(!params.showLK);
+          }}
+          className="MainForm__Button"
+          >
+          История заявок
         </div>
       </div>
     </div>
