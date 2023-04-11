@@ -36,8 +36,8 @@ export const Main = (params: IMain) => {
         setShow={params.setShow}
         show={params.show}
         requestRef={params.requestRef}
-        showLK = {params.showLK}
-        setShowLK = {params.setShowLK}
+        // showLK = {params.showLK}
+        // setShowLK = {params.setShowLK}
       />
 
       {params.show && <Form setShow={params.setShow} show={params.show} />}
@@ -45,3 +45,4 @@ export const Main = (params: IMain) => {
     </div>
   );
 };
+//

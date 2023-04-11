@@ -2,13 +2,21 @@ import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { createStore, createEvent} from 'effector';
 
 export const $accessToken = createStore("");
-export const $refreshToken = createStore("");
-
 export const setaccessToken= createEvent<string>();
-export const setrefreshToken= createEvent<string>();
-
 $accessToken.on(setaccessToken, (_:any, accessToken:string) => accessToken);
+
+export const $refreshToken = createStore("");
+export const setrefreshToken= createEvent<string>();
 $refreshToken.on(setrefreshToken, (_:any, refreshToken:string) => refreshToken);
+
+export const $DataUser = createStore<null|User>(null);
+export const setDataUser= createEvent<null|User>();
+$DataUser.on(setDataUser, (_:any, DataUser:null|User) => DataUser);
+
+export interface User
+{
+  emailOrPhone: string
+}
 
 export const deffURL = 'https://test.gkh-info.org/api/ego/';
 

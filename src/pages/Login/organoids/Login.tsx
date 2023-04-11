@@ -3,26 +3,27 @@ import { useStore } from "effector-react"
 import { NavLink, useNavigate } from "react-router-dom"; 
 import "../styles/Login.css"
 import { BigImage } from "../../../ui/BigImage/organoids/BigImage";
-import { $axiosInstance, AuthResponse } from '../../../common/axio/axiosInstance2';
+import { $axiosInstance, AuthResponse, setDataUser } from '../../../common/axio/axiosInstance2';
 import { $accessToken,setaccessToken } from "../../../common/axio/axiosInstance2"
 import { $refreshToken,setrefreshToken } from "../../../common/axio/axiosInstance2"
+
     
 export const Login = () => {
     const [userData, setValue] = useState({ password: "", phone: "", mail: "" })
     const navigate = useNavigate();
-    const Token = useStore($accessToken);
-    const RToken = useStore($refreshToken);
     
     const Autorisation = () =>{
         $axiosInstance.post<AuthResponse>('members/login',
         {
             emailOrPhone: 'test@mail.com',
-            password: '12345678',
+            password: '12345678'
         })
         .then((res) => {console.log(res);
-        navigate("/")
-        setaccessToken(Token)
-        setrefreshToken(RToken)})
+            navigate("/")
+            setaccessToken(res.data.accessToken)
+            setrefreshToken(res.data.refreshToken)
+            setDataUser({emailOrPhone:'test@mail.com'})}
+            )
         .catch(() => [])
     }
 
