@@ -15,6 +15,8 @@ interface IHeader {
   topicsRef: any;
   contactsRef: any;
   requestRef: any;
+  showLK: boolean;
+  setShowLK: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Header = (params: IHeader) => {
@@ -41,8 +43,10 @@ export const Header = (params: IHeader) => {
               contactsRef={params.contactsRef} 
               requestRef={params.requestRef}  
             />
-            {dataUser?.emailOrPhone == null && (<ButtonBar />)}
-            {dataUser?.emailOrPhone != null && (<DropDown />)}
+            {
+              dataUser?.emailOrPhone == null ? <ButtonBar /> :
+              <DropDown requestRef = {params.requestRef} showLK = {params.showLK} setShowLK = {params.setShowLK}/>
+            }
           </> 
         )
         }

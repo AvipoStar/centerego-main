@@ -15,7 +15,7 @@
   margin-top: 200px;
 }
 .Form__Absolute_Hist {
-  z-index: 3;
+  z-index: 2;
   display: flex;
   position: fixed;
   width: 100%;
@@ -27,7 +27,7 @@
   overflow: auto;
 }
 .Form__Absolute__Background_Hist {
-  z-index: 3;
+  z-index: 2;
   display: flex;
   position: fixed;
   width: 100%;

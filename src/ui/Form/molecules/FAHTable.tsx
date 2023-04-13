@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
+import { IForm } from "../organoids/Form";
 import "../styles/Table.css";
+import { $axiosInstance } from "../../../common/axio/axiosInstance2";
 
 export interface UserApplication {
   date: string;
@@ -8,30 +11,22 @@ export interface UserApplication {
   theme: string;
   age: number;
   action: string;
+  idAction: string;
 }
 
-let UsApp: UserApplication[] = [
+export const FAHTable = (params: IForm) => 
+{
+  const [userApplications, setApplications] = useState<UserApplication[] | any>([]);
+  useEffect(() => 
   {
-    date: "12.03.2023",
-    fio: "Кинолов Александр Николаевич",
-    phoneNumber: "+7 (999) 111-22-33",
-    eMail: "pochta@mail.ru",
-    theme: "Вопросы профессионального самоопределения школьников",
-    age: 14,
-    action: "Пройти анкету",
-  },
-  {
-    date: "12.03.2023",
-    fio: "Кинолов Александр Николаевич",
-    phoneNumber: "+7 (999) 111-22-33",
-    eMail: "pochta@mail.ru",
-    theme: "Вопросы определения и развития способностей и мышления ребенка",
-    age: 6,
-    action: "Посмотреть анкету",
-  },
-];
+    $axiosInstance.get<UserApplication>('demands/getDemandSubjects').then((res) => setApplications(res.data))
+  },[]);
 
-export const FAHTable = () => {
+  const handleClick = (action:string) =>
+  {
+    action === "Go" ? params.setShow(!params.show) : params.setShow(!params.show);
+  }
+
   return (
     <>
       <table className="TableData">
@@ -48,7 +43,7 @@ export const FAHTable = () => {
         </thead>
 
         <tbody>
-          {UsApp.map((element: UserApplication) => (
+          {userApplications.map((element: UserApplication) => (
             <tr>
               <td >
                 <div className="TableData__Content">{element.date}</div>
@@ -69,7 +64,9 @@ export const FAHTable = () => {
                 <div className="TableData__Content">{element.age} Лет</div>
               </td>
               <td className="Action_Column">
-                <div className="TableData__Content">{element.action}</div>
+                <div className="TableData__Content" onClick = { () => handleClick(element.idAction)}>
+                  {element.action} 
+                </div> 
               </td>
             </tr>
           ))}

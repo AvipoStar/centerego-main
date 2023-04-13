@@ -4,13 +4,13 @@ import Menu, { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { $DataUser } from "../../../common/axio/axiosInstance2";
+import { $DataUser, setDataUser, setaccessToken, setrefreshToken } from "../../../common/axio/axiosInstance2";
 import React from "react";
 import { useStore } from "effector-react";
 import "../styles/LKDropDown.css"
 
 export interface ILKForm {
-  requestRef: any;
+  requestRef?: any;
   setShowLK: React.Dispatch<React.SetStateAction<boolean>>;
   showLK: boolean;
 }
@@ -46,7 +46,7 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-export const DropDown = (params: ILKForm | any) => 
+export const DropDown = (params: ILKForm) => 
 {
   const dataUser = useStore($DataUser)
 
@@ -55,9 +55,18 @@ export const DropDown = (params: ILKForm | any) =>
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleOpen = () => {
     setAnchorEl(null);
+    params.setShowLK(!params.showLK);
+
   };
+  // выход из аккаунта
+  const handleExit = ()=>
+  {
+    setDataUser(null)
+    setaccessToken("")
+    setrefreshToken("")
+  }
 
   return (
     <div className='.Drop'>
@@ -78,12 +87,12 @@ export const DropDown = (params: ILKForm | any) =>
         MenuListProps={{'aria-labelledby': 'demo-customized-button'}}
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={handleClick}
       >
-        <MenuItem onClick= {handleClose}>
+        <MenuItem onClick= {handleOpen}>
           История заявок
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple
+        <MenuItem onClick={handleExit} disableRipple
         sx={{color: '#FA0000'}}>
           Выход
         </MenuItem>
@@ -92,38 +101,3 @@ export const DropDown = (params: ILKForm | any) =>
     </div>
   );
 }
-
-// export const DropDown =(params: ILKForm | any) =>{
-//   const dataUser = useStore($DataUser)
-
-//   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-//   const open = Boolean(anchorEl);
-//   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-//     setAnchorEl(event.currentTarget);
-//   };
-//   const handleClose = () => {
-//     setAnchorEl(null);
-//   };
-  
-//   const ShowAppHist = ()=>
-//   {
-//     console.log('open history')
-//   }
-   
-//   return (
-//   <div className="Drop">
-//     <button className="Button" onClick= {() => {handleClick(), params.setShowLK(!params.showLK)}}>
-//       {dataUser?.emailOrPhone}
-//     </button>
-//     <Menu id="basic-menu"
-//       anchorEl={anchorEl}
-//       open={open}
-//       onClose={handleClose}
-//       MenuListProps={{'aria-labelledby': 'basic-button'}}
-//     >
-//       <MenuItem onClick={ShowAppHist}>История заявок</MenuItem>
-//       <MenuItem onClick={handleClose}>Выход</MenuItem>
-//     </Menu>
-//   </div>
-//   );
-// }

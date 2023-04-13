@@ -6,6 +6,8 @@ import { Main } from "./pages/Main/organoids/Main";
 import { Registration } from "./pages/Registration/organoids/Registration";
 import { Login } from "./pages/Login/organoids/Login";
 import { useRef, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -41,7 +43,9 @@ function App() {
         servicesRef={servicesRef} 
         topicsRef={topicsRef} 
         contactsRef={contactsRef} 
-        requestRef={requestRef} />
+        requestRef={requestRef} 
+        setShowLK={setShowLK} 
+        showLK={showLK} />
       <div className="App__Actual">
         <Routes>
           <Route
@@ -67,6 +71,7 @@ function App() {
       </div>
       <button onClick={topFunction} id="App__Button" className="App__Button" title="Вверх страницы">Верх</button>
       <Footer contactsRef={contactsRef} />
+      <ToastContainer />
     </div>
   );
 }

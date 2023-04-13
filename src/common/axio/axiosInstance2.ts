@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { createStore, createEvent} from 'effector';
+import { toast } from "react-toastify";
 
 export const $accessToken = createStore("");
 export const setaccessToken= createEvent<string>();
@@ -55,11 +56,16 @@ export const refreshTokens = () =>
 $axiosInstance.interceptors.response.use(
   //обработка ошибки, в текущем варианте мы вызываем функцию для перелогина пользователя без авторизации
   (response) => response,
-  async (error: AxiosError) => {
+  async (error: any) => {
     if (error?.response?.status === 400) {
       await refreshTokens();
       window.location.reload();
       throw error;
+    }
+    else 
+    {
+      console.log(error.response.data.error);
+      toast.error(error.response.data.error)
     }
   }
 );

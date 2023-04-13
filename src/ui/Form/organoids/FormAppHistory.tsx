@@ -4,8 +4,10 @@ import { FAHTable } from "../molecules/FAHTable";
 import "../styles/FormAppHist.css";
 
 export interface IForm {
-    setShow: React.Dispatch<React.SetStateAction<boolean>>
     show: boolean
+    setShow: React.Dispatch<React.SetStateAction<boolean>>
+    setShowLK: React.Dispatch<React.SetStateAction<boolean>>
+    showLK: boolean
   }
 
 export const FormAppHist = (params: IForm) => 
@@ -16,7 +18,7 @@ export const FormAppHist = (params: IForm) =>
             <div className="Form__Absolute_Hist">
                 <div className="Form_Hist">
                     <FAHTitle/>
-                    <FAHTable/>
+                    <FAHTable show = {params.show} setShow={params.setShow}/>
                 </div>
             </div>
         </>

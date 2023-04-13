@@ -1,9 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/MainForm.css";
+import { $axiosInstance } from "../../../common/axio/axiosInstance2";
+import { toast } from "react-toastify";
 export interface IMainForm {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   show: boolean;
   requestRef: any;
+}
+export interface Subject
+{
+  id:string;
+  name:string;
+  position:string;
 }
 export const MainForm = (params: IMainForm) => {
   const [value, setValue] = useState({
@@ -14,12 +22,8 @@ export const MainForm = (params: IMainForm) => {
     old: 6,
   });
   const [percentage, setPercentage] = useState(0);
-  const [requestSubject, setRequestSubject] = useState([
-    { title: "Психолог", type: 0 },
-    { title: "Психолог", type: 1 },
-    { title: "Психолог", type: 2 },
-    { title: "Психолог", type: 3 },
-  ]);
+  const [requestSubject, setRequestSubject] = useState<Subject[] | any>([]);
+  
   const rangeRef = useRef(null);
 
   useEffect(() => {
@@ -27,9 +31,30 @@ export const MainForm = (params: IMainForm) => {
     setPercentage(((rangeRef.current.clientWidth - 20) / 18) * value.old);
   }, [value.old]);
 
-  const onSubmit = () => {
+  // Вывод списка запросов
+  useEffect(() => 
+  {
+    $axiosInstance.get<{}>('demands/getDemandSubjects')
+    .then((res) => setRequestSubject(res.data))
+  },[]);
+
+  const onSubmit = () => 
+  {
+    $axiosInstance.post<any>('',
+        {
+            parentFIO: "",
+            phoneNumber: "",
+            eMail: "",
+            subjectId:""
+        })
+        .then((res) => 
+        {
+          toast.done("Заявка отправлена")
+        })
+        .catch((err) => toast.error("Заявка не отправлена"))
     console.log("value", value);
   };
+
   return (
     <div className="MainForm" ref={params.requestRef}>
       <div className="MainForm__InputBar">
@@ -73,9 +98,11 @@ export const MainForm = (params: IMainForm) => {
             Проблематика, тема запроса
           </option>
           {requestSubject &&
-            requestSubject.map((e: any) => (
-              <option className="MainForm__InputBar__Option" value={e.type}>
-                {e.title}
+            requestSubject.map((e: Subject) => (
+              <option className="MainForm__InputBar__Option" value={e.id} 
+              // onChange=(setValue())
+              >
+                {e.name}
               </option>
             ))}
         </select>
@@ -115,24 +142,14 @@ export const MainForm = (params: IMainForm) => {
             </div>
           </div>
         </div>
-        <div
+        <div 
+          className="MainForm__Button"
           onClick={() => {
             onSubmit();
-            params.setShow(!params.show);
-          }}
-          className="MainForm__Button"
-        >
+          }}>
           Отправить заявку
         </div>
-        {/* <div
-          onClick={() => {
-            onSubmit();
-            params.setShowLK(!params.showLK);
-          }}
-          className="MainForm__Button"
-          >
-          История заявок
-        </div> */}
+        
       </div>
     </div>
   );

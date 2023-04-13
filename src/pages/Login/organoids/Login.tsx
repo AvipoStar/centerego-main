@@ -6,6 +6,7 @@ import { BigImage } from "../../../ui/BigImage/organoids/BigImage";
 import { $axiosInstance, AuthResponse, setDataUser } from '../../../common/axio/axiosInstance2';
 import { $accessToken,setaccessToken } from "../../../common/axio/axiosInstance2"
 import { $refreshToken,setrefreshToken } from "../../../common/axio/axiosInstance2"
+import { error } from "console";
 
     
 export const Login = () => {
@@ -15,16 +16,21 @@ export const Login = () => {
     const Autorisation = () =>{
         $axiosInstance.post<AuthResponse>('members/login',
         {
-            emailOrPhone: 'test@mail.com',
-            password: '12345678'
+            emailOrPhone: userData.mail || userData.phone,
+            password: userData.password
         })
         .then((res) => {console.log(res);
-            navigate("/")
-            setaccessToken(res.data.accessToken)
+            if (res&&res.data)
+            {
+                setaccessToken(res.data.accessToken)
             setrefreshToken(res.data.refreshToken)
-            setDataUser({emailOrPhone:'test@mail.com'})}
-            )
-        .catch(() => [])
+            setDataUser( {emailOrPhone:userData.mail||userData.phone})
+            navigate("/")
+            }
+            else console.log(res)
+            }
+        )
+        .catch((err) => console.log(err))
     }
 
     return (
@@ -42,7 +48,7 @@ export const Login = () => {
                     />
                     <input
                         type="password" 
-                        value={userData.password || ""} 
+                        value={userData.password} 
                         onChange={(event: any) => { setValue({ ...userData, ["password"]: event.target.value })}}
                         placeholder="Пароль" 
                        />

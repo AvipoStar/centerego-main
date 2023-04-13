@@ -24,9 +24,9 @@ export const Form = (params: IForm) => {
     console.log("value", value)
   }
   return (
-    <>
-      <div className="Form__Absolute__Background"></div>
-      <div className="Form__Absolute">
+    <div className="Form__Rating">
+      <div className="Form__Absolute__Background" onClick={ () => params.setShow(false)}></div>
+      <div className="Form__Absolute" >
         <div className="Form">
           <FormTitle />
           <FormDescription />
@@ -36,7 +36,7 @@ export const Form = (params: IForm) => {
           <FormGratitude />
         </div>
       </div>
-    </>
+    </div>
 
 
   );

@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  overflow: hidden;
 }
 .App__Actual {
   max-width: 1180px;
@@ -14,11 +15,16 @@
   justify-content: flex-start;
 }
 
-html,
-body {
-  scroll-behavior: smooth;
+html, body {
+  /* scroll-behavior: smooth; */
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 .App__Button {
   display: none;
   position: fixed;
