@@ -22,7 +22,6 @@ export interface IMain
   requestRef: any;
 }
 
-
 export const Main = (params: IMain) => {
 
   const onSubmit = () =>
@@ -33,8 +32,9 @@ export const Main = (params: IMain) => {
 
   useEffect( ()=>
   {
-    console.log(params.show)
-  },[params.show])
+    if(params.showLK) document.getElementsByTagName("body")[0].style.overflow = 'hidden';
+    else document.getElementsByTagName("body")[0].style.overflow = 'scroll';
+  },)
 
   return (
     <div className="Main">
@@ -49,13 +49,12 @@ export const Main = (params: IMain) => {
             show={params.show}
             requestRef={params.requestRef}
           /> :
-          <div className="Bottom_Button">
+          <div className="Bottom_Button" ref={params.requestRef}>
             <div className="MainForm__Button">
               <a href={"/Registration"} className="HeaderButtonBar__Item">Отправить заявку</a>
             </div>
           </div>
       }
-
 
       {params.show && <Form setShow={params.setShow} show={params.show} />}
       {params.showLK && <FormAppHist setShowLK={params.setShowLK} showLK={params.showLK} setShow={params.setShow} show={params.show}/>}

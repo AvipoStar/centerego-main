@@ -24,15 +24,16 @@ export const deffURL = 'https://test.gkh-info.org/api/ego/';
 // Общий Axios Instance для вызова Api
 export const $axiosInstance = axios.create({
   baseURL: 'https://test.gkh-info.org/api/ego/',
-  withCredentials: true,
+  // withCredentials: true,
   headers: 
   {
     'Content-Type': 'text/plain',
-  } });
+  }
+ });
 
   $axiosInstance.interceptors.request.use((config) => 
   {
-    config.headers.Authorization = `Bearer ${$accessToken}`
+    config.headers.Authorization = `Bearer ${$accessToken.getState()}`
     return config;
   })
 
@@ -59,7 +60,7 @@ $axiosInstance.interceptors.response.use(
   async (error: any) => {
     if (error?.response?.status === 400) {
       await refreshTokens();
-      window.location.reload();
+      // window.location.reload();
       throw error;
     }
     else 

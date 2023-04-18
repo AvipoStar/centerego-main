@@ -5,26 +5,37 @@ import { $axiosInstance } from "../../../common/axio/axiosInstance2";
 
 export interface UserApplication {
   date: string;
-  fio: string;
-  phoneNumber: string;
-  eMail: string;
-  theme: string;
-  age: number;
-  action: string;
-  idAction: string;
+  actionId: string;
+
+  childAge: string,
+  email: string,
+  fio: string,
+  id: string,
+  phone: string,
+  querySubjectId: string
 }
 
 export const FAHTable = (params: IForm) => 
 {
-  const [userApplications, setApplications] = useState<UserApplication[] | any>([]);
-  useEffect(() => 
-  {
-    $axiosInstance.get<UserApplication>('demands/getDemandSubjects').then((res) => setApplications(res.data))
-  },[]);
+  const [userApplications, setApplications] = useState<UserApplication[] >();
 
-  const handleClick = (action:string) =>
+  useEffect(() =>
   {
-    action === "Go" ? params.setShow(!params.show) : params.setShow(!params.show);
+    $axiosInstance.get<{demandsHistory:any}>('demands/getDemandsHistory')
+    .then((res) => {setApplications(res.data.demandsHistory)})
+  },[]);
+  
+  useEffect(() =>
+  {userApplications &&
+    userApplications.map( (element: UserApplication) => 
+    {
+      element.actionId = "Go"
+    });
+  },[userApplications]);
+
+  const handleClick = (_actionId:string) =>
+  {
+    _actionId === "Go" ? params.setShow(!params.show) : params.setShow(!params.show);
   }
 
   return (
@@ -43,7 +54,8 @@ export const FAHTable = (params: IForm) =>
         </thead>
 
         <tbody>
-          {userApplications.map((element: UserApplication) => (
+          {userApplications && // проверка на undefined
+          userApplications.map((element: UserApplication) => (
             <tr>
               <td >
                 <div className="TableData__Content">{element.date}</div>
@@ -52,20 +64,30 @@ export const FAHTable = (params: IForm) =>
                 <div className="TableData__Content">{element.fio}</div>
               </td>
               <td >
-                <div className="TableData__Content TableData__Content__Phone">{element.phoneNumber}</div>
+                <div className="TableData__Content TableData__Content__Phone">{element.phone}</div>
               </td>
               <td >
-                <div className="TableData__Content">{element.eMail}</div>
+                <div className="TableData__Content">{element.email}</div>
               </td>
               <td >
-                <div className="TableData__Content">{element.theme}</div>
+                <div className="TableData__Content">{element.querySubjectId}</div>
               </td>
               <td >
-                <div className="TableData__Content">{element.age} Лет</div>
+                <div className="TableData__Content"> 
+                {
+                  element.childAge === "1" ?
+                  <div>{element.childAge} Год</div> :
+                    element.childAge === "2" || element.childAge === "3" || element.childAge === "4" ?
+                    <div>{element.childAge} Года</div> :
+                    <div>{element.childAge} Лет</div>
+                }
+                </div>
               </td>
               <td className="Action_Column">
-                <div className="TableData__Content" onClick = { () => handleClick(element.idAction)}>
-                  {element.action} 
+                <div className="TableData__Content" onClick = { () => handleClick(element.actionId)}>
+                  {element.actionId == "Go"?
+                   <div>Пройти анкету</div> : 
+                   <div>Посмотреть анкету</div>} 
                 </div> 
               </td>
             </tr>

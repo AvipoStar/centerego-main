@@ -58,7 +58,6 @@ export const DropDown = (params: ILKForm) =>
   const handleOpen = () => {
     setAnchorEl(null);
     params.setShowLK(!params.showLK);
-
   };
   // выход из аккаунта
   const handleExit = ()=>

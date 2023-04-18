@@ -16,8 +16,8 @@
 }
 
 html, body {
-  /* scroll-behavior: smooth; */
-  overflow: auto;
+  scroll-behavior: smooth;
+  /* overflow: auto; */
   -ms-overflow-style: none;
   scrollbar-width: none;
 }

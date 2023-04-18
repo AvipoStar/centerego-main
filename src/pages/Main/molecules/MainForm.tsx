@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/MainForm.css";
-import { $accessToken, $axiosInstance } from "../../../common/axio/axiosInstance2";
+import {  $accessToken, $axiosInstance} from "../../../common/axio/axiosInstance2";
 import { toast } from "react-toastify";
 import axios from "axios";
 export interface IMainForm {
@@ -8,63 +8,57 @@ export interface IMainForm {
   show: boolean;
   requestRef: any;
 }
-export interface Subject
-{
-  id:string;
-  name:string;
-  position:string;
+export interface Subject {
+  id: string;
+  name: string;
+  position: string;
 }
 export interface Demand
 {
-  _: string,
-  childAge: 0,
+  childAge: number | string,
   email: string,
   fio: string,
   phone: string,
-  subjectId: string
+  querySubjectId: string
 }
+
 export const MainForm = (params: IMainForm) => {
-  const [demand, setdemand] = useState<Demand | any>();
+  const [value, setValue] = useState<Demand>({
+    fio: "",
+    phone: "",
+    email: "",
+    querySubjectId: "",
+    childAge: "6",
+  });
   const [percentage, setPercentage] = useState(0);
   const [requestSubject, setRequestSubject] = useState<Subject[] | any>([]);
-  
+
   const rangeRef = useRef(null);
 
-  useEffect(() => 
-  {
-    //@ts-ignore
-    setPercentage(((rangeRef.current.clientWidth - 20) / 18) * demand.childAge);
-  }, [demand?.childAge]);
-
-  // // Вывод списка запросов
-  // useEffect(() => 
-  // {
-  //   $axiosInstance.get<{requestSubject:any}>('demands/getDemandSubjects')
-  //   .then((res) => setRequestSubject(res.data))
-
-  // },[]);
-
   useEffect(() => {
-    axios.get('https://test.gkh-info.org/api/ego/demands/getDemandSubjects',{
-      headers:{"Authorization":  `Bearer ${$accessToken.getState()}`}})
-      .then((res) => setRequestSubject(res.data));
-  }, []);
+    //@ts-ignore
+    setPercentage(((rangeRef.current.clientWidth - 20) / 18) * Number(value.childAge));
+    //@ts-ignore
+    console.log(`((${rangeRef.current.clientWidth} - 20) / 18) * ${Number(value.childAge)} = ${((rangeRef.current.clientWidth - 20) / 18) * Number(value.childAge)}`);
+  }, [value?.childAge]);
+
+  // Вывод списка запросов
+  useEffect(() =>
+  {
+    $axiosInstance.get<{demandSubjects:any}>('demands/getDemandSubjects')
+    .then((res) => setRequestSubject(res.data.demandSubjects))
+  },[]);
 
   const onSubmit = () => {
-    $axiosInstance.post<Demand>('demands/setDemand',
-        {
-          childAge: demand?.childAge,
-          email: demand?.email,
-          fio: demand?.fio,
-          phone: demand?.phone,
-          subjectId: demand?.subjectId 
-        })
-        .then((res) => 
+    console.log(value)
+    $axiosInstance.post<Demand>('demands/setDemand', value)
+        .then((res) =>
         {
           toast.done("Заявка отправлена")
         })
         .catch((err) => toast.error("Заявка не отправлена"))
-    console.log("value", demand);
+    console.log("value", value);
+
   };
 
   return (
@@ -73,43 +67,47 @@ export const MainForm = (params: IMainForm) => {
         <div className="MainForm__Title">Подать заявку на консультацию</div>
         <input
           type="text"
-          value={demand?.fio || ""}
-          onChange={(event: any) => { setdemand({ ...demand, ["fio"]: event.target.value })}}
+          value={value.fio || ""}
+          onChange={(event: any) => {
+            setValue({ ...value, ["fio"]: event.target.value });
+          }}
           placeholder="ФИО родителя"
         />
         <input
           type="text"
-          value={demand.phone || ""}
+          value={value.phone || ""}
           onChange={(event: any) => {
-            setdemand({ ...demand, ["phone"]: event.target.value });
+            setValue({ ...value, ["phone"]: event.target.value });
           }}
           placeholder="Номер телефона"
         />
         <input
           type="text"
-          value={demand?.email || ""}
+          value={value.email || ""}
           onChange={(event: any) => {
-            setdemand({ ...demand, ["email"]: event.target.value });
+            setValue({ ...value, ["email"]: event.target.value });
           }}
           placeholder="E-mail"
         />
         <select
           className={
-            demand?.subjectId == ""
+            value.querySubjectId == ""
               ? "MainForm__InputBar__Select__Place MainForm__InputBar__Select"
               : "MainForm__InputBar__Select"
           }
-          value={demand?.subjectId || ""}
+          value={value.querySubjectId || ""}
           onChange={(event: any) => {
-            setdemand({ ...demand, ["type"]: event.target.value });
+            setValue({ ...value, ["querySubjectId"]: event.target.value });
           }}
         >
           <option value="" disabled selected>
             Проблематика, тема запроса
           </option>
-          {requestSubject && requestSubject.map((e: Subject) => (
-              <option className="MainForm__InputBar__Option" value={e.id} 
-              // onChange=(setValue())
+          {requestSubject &&
+            requestSubject.map((e: Subject) => (
+              <option
+                className="MainForm__InputBar__Option"
+                value={e.id}
               >
                 {e.name}
               </option>
@@ -124,9 +122,9 @@ export const MainForm = (params: IMainForm) => {
               min={0}
               max={18}
               step={1}
-              value={demand?.childAge}
+              value={value.childAge}
               onChange={(event: any) => {
-                setdemand({ ...demand, ["childAge"]: Number(event.target.value) });
+                setValue({ ...value, ["childAge"]: event.target.value + "" });
               }}
             />
             <div
@@ -142,7 +140,7 @@ export const MainForm = (params: IMainForm) => {
                   left: `${percentage}px`,
                 }}
               >
-                {demand?.childAge}
+                {value.childAge}
               </div>
             </div>
             <div className="MainForm__Range__Band">
@@ -151,14 +149,14 @@ export const MainForm = (params: IMainForm) => {
             </div>
           </div>
         </div>
-        <div 
-          className="MainForm__Button"
+        <div
+          className="MainForm__Button" 
           onClick={() => {
             onSubmit();
-          }}>
+          }}
+        >
           Отправить заявку
         </div>
-        
       </div>
     </div>
   );

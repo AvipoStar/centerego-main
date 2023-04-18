@@ -6,23 +6,44 @@ import { FormStarBar } from "../molecules/FormStarBar";
 import { FormStarDescription } from "../molecules/FormStarDescription";
 import { FormTitle } from "../molecules/FormTitle";
 import "../styles/Form.css"
+import { $axiosInstance } from "../../../common/axio/axiosInstance2";
+import { toast } from "react-toastify";
 export interface IForm {
   setShow: React.Dispatch<React.SetStateAction<boolean>>
   show: boolean
 }
+export interface DemandRating
+{
+  answeredClearly: number,
+  comment: string,
+  demandId: string,
+  recomendationsUseful: number,
+  signedUpEasily: number,
+  technicalDifficulties: number,
+  waitingTime: number,
+  willRecomend: number
+}
+
 export const Form = (params: IForm) => {
-  const [value, setValue] = useState({
-    comments: "",
-    star1: "",
-    star2: "",
-    star3: "",
-    star4: "",
-    star5: "",
-    star6: "",
+  const [value, setValue] = useState<DemandRating>({
+    comment: "",
+    technicalDifficulties: 0,
+    waitingTime: 0,
+    answeredClearly: 0,
+    signedUpEasily: 0,
+    recomendationsUseful: 0,
+    willRecomend: 0,
+    demandId: ""
   })
-  const onSubmit = () => {
-    console.log("value", value)
+  const onClick = () => {
+    $axiosInstance.post<DemandRating>('demands/setDemandRating', value)
+        .then((res) =>
+        {
+          toast.done("Заявка отправлена")
+        })
+        .catch((err) => toast.error("Заявка не отправлена"))
   }
+
   return (
     <div className="Form__Rating">
       <div className="Form__Absolute__Background" onClick={ () => params.setShow(false)}></div>
@@ -32,7 +53,7 @@ export const Form = (params: IForm) => {
           <FormDescription />
           <FormStarDescription />
           <FormStarBar value={value} setValue={setValue} />
-          <FormInputBar onSubmit={onSubmit} value={value} setValue={setValue} setShow={params.setShow} show={params.show} />
+          <FormInputBar onClick={onClick} value={value} setValue={setValue} setShow={params.setShow} show={params.show} />
           <FormGratitude />
         </div>
       </div>

@@ -4,10 +4,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: sticky;
+
 }
 .Bottom_Button
 {
     margin-top: 40px;
     padding-bottom: 80px;
-    width: 100%;
+    /* width: 100%; */
 }

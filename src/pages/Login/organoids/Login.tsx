@@ -7,12 +7,13 @@ import { $axiosInstance, AuthResponse, setDataUser } from '../../../common/axio/
 import { $accessToken,setaccessToken } from "../../../common/axio/axiosInstance2"
 import { $refreshToken,setrefreshToken } from "../../../common/axio/axiosInstance2"
 import { error } from "console";
+
     
 export const Login = () => {
     const [userData, setValue] = useState({ password: "", phone: "", mail: "" })
     const navigate = useNavigate();
     
-    const Autorisation = () => {
+    const Autorisation = () =>{
         $axiosInstance.post<AuthResponse>('members/login',
         {
             emailOrPhone: userData.mail || userData.phone,
@@ -21,10 +22,10 @@ export const Login = () => {
         .then((res) => {console.log(res);
             if (res&&res.data)
             {
-            setaccessToken(res.data.accessToken)
+                setaccessToken(res.data.accessToken)
             setrefreshToken(res.data.refreshToken)
             setDataUser( {emailOrPhone:userData.mail||userData.phone})
-            //navigate("/")
+            navigate("/")
             }
             else console.log(res)
             }

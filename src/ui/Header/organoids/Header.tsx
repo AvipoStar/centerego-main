@@ -44,8 +44,9 @@ export const Header = (params: IHeader) => {
               requestRef={params.requestRef}  
             />
             {
-              dataUser?.emailOrPhone == null ? <ButtonBar /> :
-              <DropDown requestRef = {params.requestRef} showLK = {params.showLK} setShowLK = {params.setShowLK}/>
+              dataUser?.emailOrPhone == null ? 
+                <ButtonBar /> :
+                <DropDown showLK = {params.showLK} setShowLK = {params.setShowLK}/>
             }
           </> 
         )

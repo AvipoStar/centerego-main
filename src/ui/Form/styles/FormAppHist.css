@@ -12,19 +12,22 @@
   max-width: 1300px;
   width: 100%;
   box-sizing: content-box;
-  margin-top: 200px;
+}
+.Form__Absolute::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 .Form__Absolute_Hist {
   z-index: 2;
   display: flex;
   position: fixed;
-  width: 100%;
   height: 100%;
   top: 0;
-  left: 0;
   align-items: center;
   justify-content: center;
   overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .Form__Absolute__Background_Hist {
   z-index: 2;
@@ -39,6 +42,15 @@
   background: #000000;
   opacity: 0.2;
 }
+.Form_Hist_Main
+{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-height: 1100px) {
   .Form__Absolute_Hist {
     align-items: flex-start;
