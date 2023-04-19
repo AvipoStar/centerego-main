@@ -1,15 +1,15 @@
-.Form {
+.Form_Hist {
   display: flex;
   padding-top: 40px;
   padding-bottom: 40px;
-  padding-left: 124px;
-  padding-right: 124px;
+  padding-left: 60px;
+  padding-right: 60px;
   background: #ffffff;
   border-radius: 10px;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  max-width: 852px;
+  max-width: 1300px;
   width: 100%;
   box-sizing: content-box;
 }
@@ -17,8 +17,8 @@
   width: 0;
   height: 0;
 }
-.Form__Absolute {
-  z-index: 3;
+.Form__Absolute_Hist {
+  z-index: 2;
   display: flex;
   position: fixed;
   height: 100%;
@@ -29,8 +29,8 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-.Form__Absolute__Background {
-  z-index: 3;
+.Form__Absolute__Background_Hist {
+  z-index: 2;
   display: flex;
   position: fixed;
   width: 100%;
@@ -42,14 +42,19 @@
   background: #000000;
   opacity: 0.2;
 }
-.Form__Rating
+.Form_Hist_Main
 {
   display: flex;
-  flex-wrap: nowrap;
+  flex-direction: column;
+  align-content: center;
   justify-content: center;
+  align-items: center;
 }
+
 @media screen and (max-height: 1100px) {
-  .Form__Absolute {
+  .Form__Absolute_Hist {
     align-items: flex-start;
   }
 }
+
+

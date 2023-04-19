@@ -10,7 +10,7 @@ export interface IFormStarBar {
 export const FormStarBar = (params:IFormStarBar) => {
   const [rating, ] = useState(0)
   const handleRating = (rate: number,id:string) => {
-    params.setValue({ ...params.value, [`star${id}`]: rate }) 
+    params.setValue({ ...params.value, [`${id}`]: rate }) 
   }
   useEffect(() => {
     console.log("rating", rating)
@@ -22,7 +22,7 @@ export const FormStarBar = (params:IFormStarBar) => {
           Я легко записался (-лась) для получения консультации
         </div>
         <Rating
-          onClick={(rate: number)=>handleRating(rate,"1")}
+          onClick={(rate: number)=>handleRating(rate,"technicalDifficulties")}
           fillIcon={<Star />}
           emptyIcon={<StarBlack />}
           className="FormStarBar__Item__Rating"
@@ -33,7 +33,7 @@ export const FormStarBar = (params:IFormStarBar) => {
           Время ожидания консультации от момента записи составило меньше 10 дней
         </div>
         <Rating
-          onClick={(rate: number)=>handleRating(rate,"2")}
+          onClick={(rate: number)=>handleRating(rate,"waitingTime")}
           fillIcon={<Star />}
           emptyIcon={<StarBlack />}
           className="FormStarBar__Item__Rating"
@@ -44,7 +44,7 @@ export const FormStarBar = (params:IFormStarBar) => {
           Специалист подробно и понятно ответил на все мои вопросы
         </div>
         <Rating
-          onClick={(rate: number)=>handleRating(rate,"3")}
+          onClick={(rate: number)=>handleRating(rate,"answeredClearly")}
           fillIcon={<Star />}
           emptyIcon={<StarBlack />}
           className="FormStarBar__Item__Rating"
@@ -55,7 +55,7 @@ export const FormStarBar = (params:IFormStarBar) => {
           У меня не возникало технических сложностей во время консультации. А если возникало, все оперативно решалось
         </div>
         <Rating
-          onClick={(rate: number)=>handleRating(rate,"4")}
+          onClick={(rate: number)=>handleRating(rate,"signedUpEasily")}
           fillIcon={<Star />}
           emptyIcon={<StarBlack />}
           className="FormStarBar__Item__Rating"
@@ -66,7 +66,7 @@ export const FormStarBar = (params:IFormStarBar) => {
           Рекомендации специалиста были для меня полезны/информативны
         </div>
         <Rating
-          onClick={(rate: number)=>handleRating(rate,"5")}
+          onClick={(rate: number)=>handleRating(rate,"recomendationsUseful")}
           fillIcon={<Star />}
           emptyIcon={<StarBlack />}
           className="FormStarBar__Item__Rating"
@@ -77,7 +77,7 @@ export const FormStarBar = (params:IFormStarBar) => {
           Я буду рекомендовать своим знакомым и друзьям получение подобных консультаций
         </div>
         <Rating
-          onClick={(rate: number)=>handleRating(rate,"6")}
+          onClick={(rate: number)=>handleRating(rate,"willRecomend")}
           fillIcon={<Star />}
           emptyIcon={<StarBlack />}
           className="FormStarBar__Item__Rating"

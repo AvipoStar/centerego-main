@@ -1,18 +1,36 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useStore } from "effector-react"
+import { NavLink, useNavigate } from "react-router-dom"; 
 import "../styles/Login.css"
 import { BigImage } from "../../../ui/BigImage/organoids/BigImage";
-import { axiosInstance } from "../../../common/axio/axiosInstance2";
+import { $axiosInstance, AuthResponse, setDataUser } from '../../../common/axio/axiosInstance2';
+import { $accessToken,setaccessToken } from "../../../common/axio/axiosInstance2"
+import { $refreshToken,setrefreshToken } from "../../../common/axio/axiosInstance2"
+import { error } from "console";
 
+    
 export const Login = () => {
-    const [value, setValue] = useState({ password: "", phone: "", mail: "" })
-
-
+    const [userData, setValue] = useState({ password: "", phone: "", mail: "" })
+    const navigate = useNavigate();
+    
     const Autorisation = () =>{
-        axiosInstance.get<{ menu: any[] }>('authorization/members/login')
-        .then((res) => res.data.menu)
-        .catch(() => [])
-        console.log()
+        $axiosInstance.post<AuthResponse>('members/login',
+        {
+            emailOrPhone: userData.mail || userData.phone,
+            password: userData.password
+        })
+        .then((res) => {console.log(res);
+            if (res&&res.data)
+            {
+                setaccessToken(res.data.accessToken)
+            setrefreshToken(res.data.refreshToken)
+            setDataUser( {emailOrPhone:userData.mail||userData.phone})
+            navigate("/")
+            }
+            else console.log(res)
+            }
+        )
+        .catch((err) => console.log(err))
     }
 
     return (
@@ -22,9 +40,18 @@ export const Login = () => {
                     Авторизация
                 </div>
                 <div className="Login__Data__InputBar">
-                    <input type="text" value={value.phone || ""} onChange={(event: any) => { setValue({ ...value, ["phone"]: event.target.value }) }} placeholder="Номер телефон" />
-                    <input type="text" value={value.mail || ""} onChange={(event: any) => { setValue({ ...value, ["mail"]: event.target.value }) }} placeholder="E-mail" />
-                    <input type="text" value={value.password || ""} onChange={(event: any) => { setValue({ ...value, ["password"]: event.target.value }) }} placeholder="Пароль" />
+                    <input 
+                        type="text"
+                        value={userData.mail || userData.phone} 
+                        onChange={(event: any) => { setValue({ ...userData, ["mail"]: event.target.value, ["phone"]:event.target.value }) }}
+                        placeholder="E-mail или телефон" 
+                    />
+                    <input
+                        type="password" 
+                        value={userData.password} 
+                        onChange={(event: any) => { setValue({ ...userData, ["password"]: event.target.value })}}
+                        placeholder="Пароль" 
+                       />
                     <div onClick={Autorisation} className="Login__Data__InputBar__Button">
                         Авторизоваться
                     </div>
@@ -40,3 +67,7 @@ export const Login = () => {
         </div>
     );
 };
+
+
+
+

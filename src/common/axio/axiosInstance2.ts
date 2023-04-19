@@ -1,25 +1,72 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
+import { createStore, createEvent} from 'effector';
+import { toast } from "react-toastify";
 
-export const accessTokenName = "accessTokenV3";
-//export const refreshTokenName = "refreshTokenV3";
-export const deffURL = " http://62.109.0.113";
+export const $accessToken = createStore("");
+export const setaccessToken= createEvent<string>();
+$accessToken.on(setaccessToken, (_:any, accessToken:string) => accessToken);
+
+export const $refreshToken = createStore("");
+export const setrefreshToken= createEvent<string>();
+$refreshToken.on(setrefreshToken, (_:any, refreshToken:string) => refreshToken);
+
+export const $DataUser = createStore<null|User>(null);
+export const setDataUser= createEvent<null|User>();
+$DataUser.on(setDataUser, (_:any, DataUser:null|User) => DataUser);
+
+export interface User
+{
+  emailOrPhone: string
+}
+
+export const deffURL = 'https://test.gkh-info.org/api/ego/';
 
 // Общий Axios Instance для вызова Api
-export const axiosInstance = axios.create({
-  baseURL: "http://62.109.0.113:8039/members/login",
-  headers: {
-    authorization: `Bearer ${localStorage.getItem(accessTokenName)}`,
-  },
-});
+export const $axiosInstance = axios.create({
+  baseURL: 'https://test.gkh-info.org/api/ego/',
+  // withCredentials: true,
+  headers: 
+  {
+    'Content-Type': 'text/plain',
+  }
+ });
 
-// axiosInstance.interceptors.response.use(
-//   //обработка ошибки, в текущем варианте мы вызываем функцию для перелогина пользователя без авторизации
-//   (response) => response,
-//   async (error: AxiosError) => {
-//     if (error?.response?.status === 400) {
-//       await refreshTokens();
-//       window.location.reload();
-//       throw error;
-//     }
-//   }
-// );
+  $axiosInstance.interceptors.request.use((config) => 
+  {
+    config.headers.Authorization = `Bearer ${$accessToken.getState()}`
+    return config;
+  })
+
+export interface AuthResponse
+{
+  accessToken:string;
+  refreshToken: string;
+}
+export const refreshTokens = () =>
+{
+  $axiosInstance.post<AuthResponse>('members/refreshTokens',
+        {
+           refreshToken: $refreshToken
+        })
+        .then((res) => {console.log(res);
+        setaccessToken(res.data.accessToken)
+        setrefreshToken(res.data.refreshToken)})
+        .catch(() => [])
+}
+
+$axiosInstance.interceptors.response.use(
+  //обработка ошибки, в текущем варианте мы вызываем функцию для перелогина пользователя без авторизации
+  (response) => response,
+  async (error: any) => {
+    if (error?.response?.status === 400) {
+      await refreshTokens();
+      // window.location.reload();
+      throw error;
+    }
+    else 
+    {
+      console.log(error.response.data.error);
+      toast.error(error.response.data.error)
+    }
+  }
+);

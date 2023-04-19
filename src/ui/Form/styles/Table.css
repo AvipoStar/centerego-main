@@ -1,0 +1,49 @@
+.TableHead {
+  font-family: "Manrope";
+  font-style: normal;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  color: #fff;
+  background-color: #5c1b5e;
+  width: 100%;
+}
+.TableData {
+  font-family: "Manrope";
+  font-style: normal;
+  font-size: 16px;
+  color: #3e3636;
+  border-spacing: inherit;
+  border: 1px solid;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.TableData table,
+.TableData th,
+.TableData td {
+  border-collapse: collapse;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #5d1c5f;
+}
+.TableData__Content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 16px 16px 16px;
+}
+.TableData__Content__Phone{
+  white-space:nowrap;
+}
+.LeftHeader {
+  border-top-left-radius: 10px;
+}
+.RightHeader {
+  border-top-right-radius: 10px;
+}
+.Action_Column {
+  text-align: center;
+  font-weight: 800;
+  color: #5c1b5e;
+  cursor: pointer
+}
