@@ -19,7 +19,7 @@ export const FooterAbout = () => {
                 Мы в социальных сетях
             </div>
             <div className="FooterAbout__LinkList">
-                <a target=" _blank" href="/">
+                <a target=" _blank" href="https://t.me/+jxfmLEsV7Yw4MTdi">
                     <img src={Tg} alt="Tg" />
                 </a>
                 <a target=" _blank" href="/">

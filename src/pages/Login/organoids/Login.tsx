@@ -10,22 +10,22 @@ import { error } from "console";
 
     
 export const Login = () => {
-    const [userData, setValue] = useState({ password: "", phone: "", mail: "" })
+    const [userData, setValue] = useState({emailOrPhone: "", password: "" })
     const navigate = useNavigate();
     
     const Autorisation = () =>{
         $axiosInstance.post<AuthResponse>('members/login',
         {
-            emailOrPhone: userData.mail || userData.phone,
+            emailOrPhone: userData.emailOrPhone,
             password: userData.password
         })
         .then((res) => {console.log(res);
-            if (res&&res.data)
+            if (res && res.data)
             {
                 setaccessToken(res.data.accessToken)
-            setrefreshToken(res.data.refreshToken)
-            setDataUser( {emailOrPhone:userData.mail||userData.phone})
-            navigate("/")
+                setrefreshToken(res.data.refreshToken)
+                setDataUser( {emailOrPhone:userData.emailOrPhone})
+                navigate("/")
             }
             else console.log(res)
             }
@@ -42,8 +42,8 @@ export const Login = () => {
                 <div className="Login__Data__InputBar">
                     <input 
                         type="text"
-                        value={userData.mail || userData.phone} 
-                        onChange={(event: any) => { setValue({ ...userData, ["mail"]: event.target.value, ["phone"]:event.target.value }) }}
+                        value={userData.emailOrPhone} 
+                        onChange={(event: any) => { setValue({ ...userData, ["emailOrPhone"]: event.target.value}) }}
                         placeholder="E-mail или телефон" 
                     />
                     <input

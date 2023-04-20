@@ -69,7 +69,7 @@ function App() {
             element={<Login />} />
         </Routes>
       </div>
-      <button onClick={topFunction} id="App__Button" className="App__Button" title="Вверх страницы">Верх</button>
+      <button onClick={topFunction} id="App__Button" className="App__Button" title="Вверх страницы">Вверх</button>
       <Footer contactsRef={contactsRef} />
       <ToastContainer />
     </div>

@@ -39,7 +39,7 @@ export const MainForm = (params: IMainForm) => {
     //@ts-ignore
     setPercentage(((rangeRef.current.clientWidth - 20) / 18) * Number(value.childAge));
     //@ts-ignore
-    console.log(`((${rangeRef.current.clientWidth} - 20) / 18) * ${Number(value.childAge)} = ${((rangeRef.current.clientWidth - 20) / 18) * Number(value.childAge)}`);
+    // console.log(`((${rangeRef.current.clientWidth} - 20) / 18) * ${Number(value.childAge)} = ${((rangeRef.current.clientWidth - 20) / 18) * Number(value.childAge)}`);
   }, [value?.childAge]);
 
   // Вывод списка запросов
@@ -54,11 +54,17 @@ export const MainForm = (params: IMainForm) => {
     $axiosInstance.post<Demand>('demands/setDemand', value)
         .then((res) =>
         {
-          toast.done("Заявка отправлена")
+          toast.success("Заявка отправлена")
+          console.log("Заявка отправлена")
         })
         .catch((err) => toast.error("Заявка не отправлена"))
     console.log("value", value);
 
+    value.childAge = ""
+    value.email = ""
+    value.fio = ""
+    value.phone = ""
+    value.querySubjectId = ""
   };
 
   return (

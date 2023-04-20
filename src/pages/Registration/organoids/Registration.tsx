@@ -9,7 +9,7 @@ import { $accessToken,setaccessToken } from "../../../common/axio/axiosInstance2
 import { $refreshToken,setrefreshToken } from "../../../common/axio/axiosInstance2"
 
 export const Registration = () => {
-    const [value, setValue] = useState({ password: "", phone: "", mail: "" })
+    const [userData, setData] = useState({ password: "", phone: "", mail: "" })
 
     const Token = useStore($accessToken);
     const RToken = useStore($refreshToken);
@@ -20,9 +20,7 @@ const navigate = useNavigate();
     {
         $axiosInstance.post<AuthResponse>('members/registration',
         {
-            email: 'test3@mail.com',
-            password: '12345678',
-            phone: '89029639257',
+            userData
         })
         .then((res) => {console.log(res);
             navigate("/");
@@ -38,9 +36,9 @@ const navigate = useNavigate();
                     Регистрация
                 </div>
                 <div className="Registration__Data__InputBar">
-                    <input type="text" value={value.phone || ""} onChange={(event: any) => { setValue({ ...value, ["phone"]: event.target.value }) }} placeholder="Номер телефон" />
-                    <input type="text" value={value.mail || ""} onChange={(event: any) => { setValue({ ...value, ["mail"]: event.target.value }) }} placeholder="E-mail" />
-                    <input type="text" value={value.password || ""} onChange={(event: any) => { setValue({ ...value, ["password"]: event.target.value }) }} placeholder="Пароль" />
+                    <input type="text" value={userData.phone || ""} onChange={(event: any) => { setData({ ...userData, ["phone"]: event.target.value }) }} placeholder="Номер телефон" />
+                    <input type="text" value={userData.mail || ""} onChange={(event: any) => { setData({ ...userData, ["mail"]: event.target.value }) }} placeholder="E-mail" />
+                    <input type="password" value={userData.password || ""} onChange={(event: any) => { setData({ ...userData, ["password"]: event.target.value }) }} placeholder="Пароль" />
                     <div onClick={Reg} className="Registration__Data__InputBar__Button">
                         Зарегистрироваться
                     </div>
