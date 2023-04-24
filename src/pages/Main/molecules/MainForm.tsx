@@ -39,7 +39,6 @@ export const MainForm = (params: IMainForm) => {
     //@ts-ignore
     setPercentage(((rangeRef.current.clientWidth - 20) / 18) * Number(value.childAge));
     //@ts-ignore
-    // console.log(`((${rangeRef.current.clientWidth} - 20) / 18) * ${Number(value.childAge)} = ${((rangeRef.current.clientWidth - 20) / 18) * Number(value.childAge)}`);
   }, [value?.childAge]);
 
   // Вывод списка запросов
@@ -50,21 +49,20 @@ export const MainForm = (params: IMainForm) => {
   },[]);
 
   const onSubmit = () => {
-    console.log(value)
     $axiosInstance.post<Demand>('demands/setDemand', value)
         .then((res) =>
         {
-          toast.success("Заявка отправлена")
-          console.log("Заявка отправлена")
+          if(res.data)
+          {
+            toast.success("Заявка отправлена")
+            value.childAge = ""
+            value.email = ""
+            value.fio = ""
+            value.phone = ""
+            value.querySubjectId = ""
+          }
         })
-        .catch((err) => toast.error("Заявка не отправлена"))
-    console.log("value", value);
-
-    value.childAge = ""
-    value.email = ""
-    value.fio = ""
-    value.phone = ""
-    value.querySubjectId = ""
+        .catch((err) => {toast.error("Заявка не отправлена")})
   };
 
   return (

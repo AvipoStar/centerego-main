@@ -8,6 +8,8 @@ import { FormTitle } from "../molecules/FormTitle";
 import "../styles/Form.css"
 import { $axiosInstance } from "../../../common/axio/axiosInstance2";
 import { toast } from "react-toastify";
+import { createEvent, createStore } from "effector";
+import { useStore } from "effector-react";
 export interface IForm {
   setShow: React.Dispatch<React.SetStateAction<boolean>>
   show: boolean
@@ -25,6 +27,7 @@ export interface DemandRating
 }
 
 export const Form = (params: IForm) => {
+
   const [value, setValue] = useState<DemandRating>({
     comment: "",
     technicalDifficulties: 0,
@@ -35,7 +38,9 @@ export const Form = (params: IForm) => {
     willRecomend: 0,
     demandId: ""
   })
+  
   const onClick = () => {
+
     $axiosInstance.post<DemandRating>('demands/setDemandRating', value)
         .then((res) =>
         {
@@ -53,7 +58,7 @@ export const Form = (params: IForm) => {
           <FormDescription />
           <FormStarDescription />
           <FormStarBar value={value} setValue={setValue} />
-          <FormInputBar onClick={onClick} value={value} setValue={setValue} setShow={params.setShow} show={params.show} />
+          <FormInputBar onClick={onClick} value={value} setValue={setValue} setShow={params.setShow} show={params.show}/>
           <FormGratitude />
         </div>
       </div>

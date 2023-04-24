@@ -3,8 +3,9 @@ import { Rating } from "react-simple-star-rating";
 import { Star } from "../atoms/Star";
 import { StarBlack } from "../atoms/StarBlack";
 import "../styles/FormStarBar.css"
+import { DemandRating } from "../organoids/Form";
 export interface IFormStarBar {
-  value: any
+  value: DemandRating
   setValue: any
 }
 export const FormStarBar = (params:IFormStarBar) => {

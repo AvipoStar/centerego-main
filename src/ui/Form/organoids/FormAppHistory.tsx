@@ -2,21 +2,19 @@ import { useState, useEffect } from 'react';
 import { FAHTitle } from "../molecules/FAHTitle";
 import { FAHTable } from "../molecules/FAHTable";
 import "../styles/FormAppHist.css";
-import { Demand } from "../../../pages/Main/molecules/MainForm";
 
-export interface IForm 
+export interface IFormAppHist 
 {
     show: boolean
     setShow: React.Dispatch<React.SetStateAction<boolean>>
-    setShowLK: React.Dispatch<React.SetStateAction<boolean>>
-    showLK: boolean
+    setShowLK?: React.Dispatch<React.SetStateAction<boolean>>
+    showLK?: boolean
 }
-
-export const FormAppHist = (params: IForm) => 
+export const FormAppHist = (params: IFormAppHist) => 
 {
     return(
         <div className="Form_Hist_Main">
-            <div className="Form__Absolute__Background_Hist" onClick={ () => params.setShowLK(false)}></div>
+            <div className="Form__Absolute__Background_Hist" onClick={ () => params.setShowLK && params.setShowLK(false)}></div>
             <div className="Form__Absolute_Hist">
                 <div className="Form_Hist">
                     <FAHTitle/>
