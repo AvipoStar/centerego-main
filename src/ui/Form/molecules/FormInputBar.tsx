@@ -9,7 +9,7 @@ import { DemandRating } from "../organoids/Form";
 export interface IFormInputBar {
   value: DemandRating
   setValue: any
-  onClick: () => void
+  onClick: any
   setShow: React.Dispatch<React.SetStateAction<boolean>>
   show: boolean
 }
@@ -34,9 +34,9 @@ export const FormInputBar = (params: IFormInputBar) => {
                 {
                   console.log("localDemand")
                   console.log(localDemand)
-                  params.onClick(); 
+                  params.onClick({ ...params.value, "demandId": localDemand.demand.id}); 
                   params.setShow(!params.show); 
-                  params.setValue({ ...params.value, "demandId": localDemand.demand.id})
+                  //params.setValue({ ...params.value, "demandId": localDemand.demand.id})
                   
                 }}
             >

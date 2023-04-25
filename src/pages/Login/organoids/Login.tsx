@@ -21,10 +21,15 @@ export const Login = () => {
         })
         .then((res) => {console.log(res);
             if (res && res.data)
-            {
+            { 
                 setaccessToken(res.data.accessToken)
                 setrefreshToken(res.data.refreshToken)
                 setDataUser( {emailOrPhone:userData.emailOrPhone})
+
+                localStorage.setItem('accessToken', res.data.accessToken);
+                localStorage.setItem('refreshToken', res.data.refreshToken);
+                localStorage.setItem('emailOrPhone', userData.emailOrPhone);
+
                 navigate("/")
             }
             else console.log(res)

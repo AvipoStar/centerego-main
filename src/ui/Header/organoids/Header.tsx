@@ -8,6 +8,8 @@ import "../styles/Header.css";
 import { useStore } from "effector-react";
 import { $DataUser } from "../../../common/axio/axiosInstance2";
 import { IMain } from "../../../pages/Main/organoids/Main";
+import { useEffect, useState } from 'react';
+import { createStore, createEvent } from "effector";
 interface IHeader {
   changePosition:any
   aboutRef: any;
@@ -17,12 +19,17 @@ interface IHeader {
   requestRef: any;
   showLK: boolean;
   setShowLK: React.Dispatch<React.SetStateAction<boolean>>;
-}
+} 
 
 export const Header = (params: IHeader) => {
   let location = useLocation();
   
   const dataUser = useStore($DataUser)
+
+  useEffect(()=>
+  {
+    console.log(dataUser?.emailOrPhone)
+  },[dataUser])
 
   return (
     <div className="Header">
@@ -44,9 +51,9 @@ export const Header = (params: IHeader) => {
               requestRef={params.requestRef}  
             />
             {
-              dataUser?.emailOrPhone == null ? 
-                <ButtonBar /> :
-                <DropDown showLK = {params.showLK} setShowLK = {params.setShowLK}/>
+              dataUser && dataUser.emailOrPhone && dataUser.emailOrPhone !== "" ? 
+              <DropDown showLK = {params.showLK} setShowLK = {params.setShowLK}/> :
+                <ButtonBar />
             }
           </> 
         )

@@ -17,7 +17,7 @@ export const FormAppHist = (params: IFormAppHist) =>
             <div className="Form__Absolute__Background_Hist" onClick={ () => params.setShowLK && params.setShowLK(false)}></div>
             <div className="Form__Absolute_Hist">
                 <div className="Form_Hist">
-                    <FAHTitle/>
+                    <FAHTitle setShowLK={params.setShowLK} showLK={params.showLK} />
                     <FAHTable show = {params.show} setShow={params.setShow}/>
                 </div>
             </div>

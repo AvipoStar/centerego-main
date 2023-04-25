@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { IFormAppHist } from "../organoids/FormAppHistory";
 import "../styles/Table.css";
 import { $axiosInstance } from "../../../common/axio/axiosInstance2";
-import { DemandRating } from "../organoids/Form";
-import { Rating } from 'react-simple-star-rating';
 import { createEvent, createStore } from "effector";
 
 export interface UserApplication {
@@ -30,10 +28,11 @@ export const FAHTable = (params: IFormAppHist) =>
 
   useEffect(() =>
   {
-    $axiosInstance.get<{demandsHistory:UserApplication[]}>('demands/getDemandsHistory')
-    .then((res) => {setApplications(res.data.demandsHistory)})
-    .catch(()=> console.log("Ошибка"))
-  },[]);
+    !params.show && 
+      $axiosInstance.get<{demandsHistory:UserApplication[]}>('demands/getDemandsHistory')
+      .then((res) => {setApplications(res.data.demandsHistory)})
+      .catch(()=> console.log("Ошибка"))
+  },[params.show]);
 
   const handleClick = (Questions:UserApplication) =>
   {
@@ -44,6 +43,7 @@ export const FAHTable = (params: IFormAppHist) =>
 
   return (
     <>
+    {userApplications ?
       <table className="TableData">
         <thead className="TableHead">
           <tr>
@@ -100,6 +100,10 @@ export const FAHTable = (params: IFormAppHist) =>
           ))}
         </tbody>
       </table>
+    : 
+    <div className="FormTitle">
+    Отсутствует история заявок
+    </div>}
     </>
   );
 };

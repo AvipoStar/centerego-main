@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/MainForm.css";
-import {  $accessToken, $axiosInstance} from "../../../common/axio/axiosInstance2";
+import {
+  $accessToken,
+  $axiosInstance,
+} from "../../../common/axio/axiosInstance2";
 import { toast } from "react-toastify";
 import axios from "axios";
 export interface IMainForm {
@@ -13,13 +16,12 @@ export interface Subject {
   name: string;
   position: string;
 }
-export interface Demand
-{
-  childAge: number | string,
-  email: string,
-  fio: string,
-  phone: string,
-  querySubjectId: string
+export interface Demand {
+  childAge: number | string;
+  email: string;
+  fio: string;
+  phone: string;
+  querySubjectId: string;
 }
 
 export const MainForm = (params: IMainForm) => {
@@ -28,7 +30,7 @@ export const MainForm = (params: IMainForm) => {
     phone: "",
     email: "",
     querySubjectId: "",
-    childAge: "6",
+    childAge: "0"
   });
   const [percentage, setPercentage] = useState(0);
   const [requestSubject, setRequestSubject] = useState<Subject[] | any>([]);
@@ -38,31 +40,34 @@ export const MainForm = (params: IMainForm) => {
   useEffect(() => {
     //@ts-ignore
     setPercentage(((rangeRef.current.clientWidth - 20) / 18) * Number(value.childAge));
-    //@ts-ignore
   }, [value?.childAge]);
 
   // Вывод списка запросов
-  useEffect(() =>
-  {
-    $axiosInstance.get<{demandSubjects:any}>('demands/getDemandSubjects')
-    .then((res) => setRequestSubject(res.data.demandSubjects))
-  },[]);
+  useEffect(() => {
+    $axiosInstance
+      .get<{ demandSubjects: any }>("demands/getDemandSubjects")
+      .then((res) => setRequestSubject(res.data.demandSubjects));
+  }, []);
 
   const onSubmit = () => {
-    $axiosInstance.post<Demand>('demands/setDemand', value)
-        .then((res) =>
-        {
-          if(res.data)
+    $axiosInstance
+      .post<Demand>("demands/setDemand", value)
+      .then((res) => {
+        if (res.data) {
+          toast.success("Заявка отправлена");
+          setValue(
           {
-            toast.success("Заявка отправлена")
-            value.childAge = ""
-            value.email = ""
-            value.fio = ""
-            value.phone = ""
-            value.querySubjectId = ""
-          }
-        })
-        .catch((err) => {toast.error("Заявка не отправлена")})
+            fio: "",
+            phone: "",
+            email: "",
+            querySubjectId: "",
+            childAge: "6",
+          });
+        }
+      })
+      .catch((err) => {
+        toast.error("Заявка не отправлена");
+      });
   };
 
   return (
@@ -109,10 +114,7 @@ export const MainForm = (params: IMainForm) => {
           </option>
           {requestSubject &&
             requestSubject.map((e: Subject) => (
-              <option
-                className="MainForm__InputBar__Option"
-                value={e.id}
-              >
+              <option className="MainForm__InputBar__Option" value={e.id}>
                 {e.name}
               </option>
             ))}
@@ -154,7 +156,7 @@ export const MainForm = (params: IMainForm) => {
           </div>
         </div>
         <div
-          className="MainForm__Button" 
+          className="MainForm__Button"
           onClick={() => {
             onSubmit();
           }}
