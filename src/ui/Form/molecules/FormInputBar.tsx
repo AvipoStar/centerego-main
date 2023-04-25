@@ -5,6 +5,7 @@ import { toast } from "react-toastify"
 import { $demand } from "./FAHTable";
 import { useStore } from "effector-react";
 import { DemandRating } from "../organoids/Form";
+import { Demand } from '../../../pages/Main/molecules/MainForm';
 
 export interface IFormInputBar {
   value: DemandRating
@@ -18,6 +19,24 @@ export const FormInputBar = (params: IFormInputBar) => {
 
   const localDemand = useStore($demand);
 
+  const SetOnClick = () => 
+  {
+    if(params.value.answeredClearly == 0 || 
+      params.value.recomendationsUseful == 0 ||
+      params.value.signedUpEasily == 0 ||
+      params.value.technicalDifficulties == 0 ||
+      params.value.waitingTime == 0 ||
+      params.value.willRecomend == 0)
+    {
+      toast.error("Заполните все поля!")
+    }
+    else 
+    {
+      params.onClick({ ...params.value, "demandId": localDemand.demand.id}); 
+      params.setShow(!params.show); 
+    }
+  }
+
   return (
     <div className="FormInputBar">
       <input onChange={(event: any) => 
@@ -26,19 +45,12 @@ export const FormInputBar = (params: IFormInputBar) => {
         }} 
         type="text" 
         value={params.value.comment} 
-        placeholder="Иные комментарии" />
+        placeholder="Иные комментарии" 
+        readOnly={$demand.getState().rating.demandId.length == 0 ? false : true}/>
         { 
           localDemand && localDemand.rating.demandId.length == 0 &&
             <div className="FormInputBar__Button"
-              onClick={ () => 
-                {
-                  console.log("localDemand")
-                  console.log(localDemand)
-                  params.onClick({ ...params.value, "demandId": localDemand.demand.id}); 
-                  params.setShow(!params.show); 
-                  //params.setValue({ ...params.value, "demandId": localDemand.demand.id})
-                  
-                }}
+              onClick={SetOnClick}
             >
               Отправить анкету
             </div>

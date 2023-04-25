@@ -40,12 +40,13 @@ export const Form = (params: IForm) => {
   })
   
   const onClick = (foremtedValue:DemandRating) => {
-    $axiosInstance.post<DemandRating>('demands/setDemandRating', foremtedValue)
-        .then((res) =>
-        {
-          toast.done("Заявка отправлена")
-        })
-        .catch((err) => toast.error("Заявка не отправлена"))
+    
+      $axiosInstance.post<DemandRating>('demands/setDemandRating', foremtedValue)
+          .then((res) =>
+          {
+            toast.done("Заявка отправлена")
+          })
+          .catch((err) => toast.error("Заявка не отправлена"))
   }
 
   return (

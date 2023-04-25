@@ -56,7 +56,7 @@ $axiosInstance.interceptors.response.use(
   async (error: any) => {
     if (error?.response?.status === 400) {
       await refreshTokens();
-      window.location.reload();
+      // window.location.reload();
       throw error;
     }
     else 
