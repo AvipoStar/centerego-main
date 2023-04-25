@@ -52,25 +52,34 @@ export const DropDown = (params: ILKForm) =>
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => 
+  {
     setAnchorEl(event.currentTarget);
   };
-  const handleOpen = () => {
+  const handleOpen = () => 
+  {
     setAnchorEl(null);
     params.setShowLK(!params.showLK);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
   // выход из аккаунта
   const handleExit = ()=>
   {
+    setAnchorEl(null);
     setDataUser(null)
     setaccessToken("")
     setrefreshToken("")
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("emailOrPhone");
   }
 
   return (
     <div className='.Drop'>
       <Button
-        id="fade-button"
+        id="basic-button"
         aria-controls={open ? 'fade-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
@@ -79,14 +88,14 @@ export const DropDown = (params: ILKForm) =>
          sx={{color: '#5d1c5f'}}
       >
         <PersonOutlineIcon/>
-        {dataUser?.emailOrPhone}
+        {localStorage.getItem("emailOrPhone")?.length !== 0 ? localStorage.getItem("emailOrPhone"):dataUser?.emailOrPhone}
       </Button>
-      <StyledMenu
-        id="demo-customized-menu"
-        MenuListProps={{'aria-labelledby': 'demo-customized-button'}}
+      <Menu
+        id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClick}
+        onClose={handleClose}
+        MenuListProps={{'aria-labelledby': 'basic-button',}}
       >
         <MenuItem onClick= {handleOpen}>
           История заявок
@@ -96,7 +105,7 @@ export const DropDown = (params: ILKForm) =>
           Выход
         </MenuItem>
         
-      </StyledMenu>
+      </Menu>
     </div>
   );
 }

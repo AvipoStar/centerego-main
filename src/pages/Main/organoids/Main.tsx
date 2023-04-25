@@ -24,10 +24,6 @@ export interface IMain
 
 export const Main = (params: IMain) => {
 
-  const onSubmit = () =>
-  {
-    
-  }
   const dataUser = useStore($DataUser)
 
   useEffect( ()=>
@@ -56,7 +52,7 @@ export const Main = (params: IMain) => {
           </div>
       }
 
-      {params.show && <Form setShow={params.setShow} show={params.show} />}
+      {params.show && <Form setShow={params.setShow} show={params.show}/>}
       {params.showLK && <FormAppHist setShowLK={params.setShowLK} showLK={params.showLK} setShow={params.setShow} show={params.show}/>}
     </div>
   );

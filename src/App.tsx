@@ -5,9 +5,10 @@ import { Footer } from "./ui/Footer/organoids/Footer";
 import { Main } from "./pages/Main/organoids/Main";
 import { Registration } from "./pages/Registration/organoids/Registration";
 import { Login } from "./pages/Login/organoids/Login";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setDataUser, setaccessToken, setrefreshToken } from "./common/axio/axiosInstance2";
 
 function App() {
   const [show, setShow] = useState(false);
@@ -35,6 +36,15 @@ function App() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   }
+
+  useEffect(() => {
+    if(localStorage.getItem("accessToken") && localStorage.getItem("refreshToken") && localStorage.getItem("emailOrPhone"))
+    {
+      setaccessToken(localStorage.getItem("accessToken")!)
+      setrefreshToken(localStorage.getItem("refreshToken")!)
+      setDataUser({emailOrPhone:localStorage.getItem("emailOrPhone")!})
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -69,7 +79,7 @@ function App() {
             element={<Login />} />
         </Routes>
       </div>
-      <button onClick={topFunction} id="App__Button" className="App__Button" title="Вверх страницы">Верх</button>
+      <button onClick={topFunction} id="App__Button" className="App__Button" title="Вверх страницы">Вверх</button>
       <Footer contactsRef={contactsRef} />
       <ToastContainer />
     </div>

@@ -7,7 +7,7 @@ import { Title } from "../molecules/Title";
 import "../styles/Header.css";
 import { useStore } from "effector-react";
 import { $DataUser } from "../../../common/axio/axiosInstance2";
-import { IMain } from "../../../pages/Main/organoids/Main";
+
 interface IHeader {
   changePosition:any
   aboutRef: any;
@@ -17,7 +17,7 @@ interface IHeader {
   requestRef: any;
   showLK: boolean;
   setShowLK: React.Dispatch<React.SetStateAction<boolean>>;
-}
+} 
 
 export const Header = (params: IHeader) => {
   let location = useLocation();
@@ -44,9 +44,9 @@ export const Header = (params: IHeader) => {
               requestRef={params.requestRef}  
             />
             {
-              dataUser?.emailOrPhone == null ? 
-                <ButtonBar /> :
-                <DropDown showLK = {params.showLK} setShowLK = {params.setShowLK}/>
+              dataUser && dataUser.emailOrPhone && dataUser.emailOrPhone !== "" ? 
+              <DropDown showLK = {params.showLK} setShowLK = {params.setShowLK}/> :
+                <ButtonBar />
             }
           </> 
         )

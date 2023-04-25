@@ -1,36 +1,40 @@
 import { useState } from "react";
-import { useStore } from "effector-react"
 import { NavLink, useNavigate } from "react-router-dom"; 
 import "../styles/Login.css"
 import { BigImage } from "../../../ui/BigImage/organoids/BigImage";
 import { $axiosInstance, AuthResponse, setDataUser } from '../../../common/axio/axiosInstance2';
-import { $accessToken,setaccessToken } from "../../../common/axio/axiosInstance2"
-import { $refreshToken,setrefreshToken } from "../../../common/axio/axiosInstance2"
-import { error } from "console";
+import { setaccessToken } from "../../../common/axio/axiosInstance2"
+import { setrefreshToken } from "../../../common/axio/axiosInstance2"
+import { toast } from "react-toastify";
 
     
 export const Login = () => {
-    const [userData, setValue] = useState({ password: "", phone: "", mail: "" })
+    const [userData, setValue] = useState({emailOrPhone: "", password: "" })
     const navigate = useNavigate();
     
     const Autorisation = () =>{
         $axiosInstance.post<AuthResponse>('members/login',
         {
-            emailOrPhone: userData.mail || userData.phone,
+            emailOrPhone: userData.emailOrPhone,
             password: userData.password
         })
-        .then((res) => {console.log(res);
-            if (res&&res.data)
-            {
+        .then((res) => {
+            if (res && res.data)
+            { 
                 setaccessToken(res.data.accessToken)
-            setrefreshToken(res.data.refreshToken)
-            setDataUser( {emailOrPhone:userData.mail||userData.phone})
-            navigate("/")
+                setrefreshToken(res.data.refreshToken)
+                setDataUser( {emailOrPhone:userData.emailOrPhone})
+
+                localStorage.setItem('accessToken', res.data.accessToken);
+                localStorage.setItem('refreshToken', res.data.refreshToken);
+                localStorage.setItem('emailOrPhone', userData.emailOrPhone);
+
+                navigate("/")
             }
-            else console.log(res)
+            else toast.error("Неправильный логин или пароль!")
             }
         )
-        .catch((err) => console.log(err))
+        
     }
 
     return (
@@ -42,8 +46,8 @@ export const Login = () => {
                 <div className="Login__Data__InputBar">
                     <input 
                         type="text"
-                        value={userData.mail || userData.phone} 
-                        onChange={(event: any) => { setValue({ ...userData, ["mail"]: event.target.value, ["phone"]:event.target.value }) }}
+                        value={userData.emailOrPhone} 
+                        onChange={(event: any) => { setValue({ ...userData, ["emailOrPhone"]: event.target.value}) }}
                         placeholder="E-mail или телефон" 
                     />
                     <input

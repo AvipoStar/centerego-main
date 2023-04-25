@@ -1,45 +1,48 @@
 import { useEffect, useState } from "react";
-import { IForm } from "../organoids/Form";
+import { IFormAppHist } from "../organoids/FormAppHistory";
 import "../styles/Table.css";
 import { $axiosInstance } from "../../../common/axio/axiosInstance2";
+import { createEvent, createStore } from "effector";
 
 export interface UserApplication {
-  date: string;
-  actionId: string;
-
-  childAge: string,
-  email: string,
-  fio: string,
-  id: string,
-  phone: string,
-  querySubjectId: string
+  demand:
+  {
+    dtCreate: string;
+    childAge: string,
+    email: string,
+    fio: string,
+    id: string,
+    phone: string,
+    subjectName: string
+  }
+    rating:any
 }
 
-export const FAHTable = (params: IForm) => 
+export const $demand = createStore<any>({})
+export const setDemand = createEvent<any>()
+$demand.on(setDemand, (_, val) => val)
+
+export const FAHTable = (params: IFormAppHist) => 
 {
-  const [userApplications, setApplications] = useState<UserApplication[] >();
+  const [userApplications, setApplications] = useState<UserApplication[]>();
 
   useEffect(() =>
   {
-    $axiosInstance.get<{demandsHistory:any}>('demands/getDemandsHistory')
-    .then((res) => {setApplications(res.data.demandsHistory)})
-  },[]);
-  
-  useEffect(() =>
-  {userApplications &&
-    userApplications.map( (element: UserApplication) => 
-    {
-      element.actionId = "Go"
-    });
-  },[userApplications]);
+    !params.show && 
+      $axiosInstance.get<{demandsHistory:UserApplication[]}>('demands/getDemandsHistory')
+      .then((res) => {setApplications(res.data.demandsHistory)})
+      
+  },[params.show]);
 
-  const handleClick = (_actionId:string) =>
+  const handleClick = (Questions:UserApplication) =>
   {
-    _actionId === "Go" ? params.setShow(!params.show) : params.setShow(!params.show);
+    setDemand(Questions);
+    params.setShow(!params.show);
   }
 
   return (
     <>
+    {userApplications ?
       <table className="TableData">
         <thead className="TableHead">
           <tr>
@@ -58,42 +61,49 @@ export const FAHTable = (params: IForm) =>
           userApplications.map((element: UserApplication) => (
             <tr>
               <td >
-                <div className="TableData__Content">{element.date}</div>
+                <div className="TableData__Content">{element.demand.dtCreate}</div>
               </td>
               <td >
-                <div className="TableData__Content">{element.fio}</div>
+                <div className="TableData__Content">{element.demand.fio}</div>
               </td>
               <td >
-                <div className="TableData__Content TableData__Content__Phone">{element.phone}</div>
+                <div className="TableData__Content TableData__Content__Phone">{element.demand.phone}</div>
               </td>
               <td >
-                <div className="TableData__Content">{element.email}</div>
+                <div className="TableData__Content">{element.demand.email}</div>
               </td>
               <td >
-                <div className="TableData__Content">{element.querySubjectId}</div>
+                <div className="TableData__Content">{element.demand.subjectName}</div>
               </td>
               <td >
                 <div className="TableData__Content"> 
                 {
-                  element.childAge === "1" ?
-                  <div>{element.childAge} Год</div> :
-                    element.childAge === "2" || element.childAge === "3" || element.childAge === "4" ?
-                    <div>{element.childAge} Года</div> :
-                    <div>{element.childAge} Лет</div>
+                  element.demand.childAge === "1" ?
+                  <div>{element.demand.childAge} Год</div> :
+                    element.demand.childAge === "2" || element.demand.childAge === "3" || element.demand.childAge === "4" ?
+                    <div>{element.demand.childAge} Года</div> :
+                    <div>{element.demand.childAge} Лет</div>
                 }
                 </div>
               </td>
               <td className="Action_Column">
-                <div className="TableData__Content" onClick = { () => handleClick(element.actionId)}>
-                  {element.actionId == "Go"?
-                   <div>Пройти анкету</div> : 
-                   <div>Посмотреть анкету</div>} 
+                <div className="TableData__Content" onClick = { () => handleClick(element)}>
+                  { 
+                    element.rating.demandId.length == 0 ?
+                      <div>Пройти анкету</div> : 
+                      <div>Посмотреть анкету</div>
+                  } 
                 </div> 
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+    : 
+    <div className="FormTitle">
+    Отсутствует история заявок
+    </div>}
     </>
   );
 };
+

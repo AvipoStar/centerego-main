@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig } from "axios";
+import axios from "axios";
 import { createStore, createEvent} from 'effector';
 import { toast } from "react-toastify";
 
@@ -19,12 +19,9 @@ export interface User
   emailOrPhone: string
 }
 
-export const deffURL = 'https://test.gkh-info.org/api/ego/';
-
 // Общий Axios Instance для вызова Api
 export const $axiosInstance = axios.create({
-  baseURL: 'https://test.gkh-info.org/api/ego/',
-  // withCredentials: true,
+  baseURL: 'https://centeregocons.ru/api',
   headers: 
   {
     'Content-Type': 'text/plain',
@@ -33,22 +30,22 @@ export const $axiosInstance = axios.create({
 
   $axiosInstance.interceptors.request.use((config) => 
   {
-    config.headers.Authorization = `Bearer ${$accessToken.getState()}`
+    config.headers.Authorization = `Bearer ${ localStorage.getItem("accessToken") && localStorage.getItem("accessToken")?.length !== 0 && $accessToken.getState()}`
     return config;
   })
 
 export interface AuthResponse
 {
-  accessToken:string;
+  accessToken: string;
   refreshToken: string;
 }
 export const refreshTokens = () =>
 {
   $axiosInstance.post<AuthResponse>('members/refreshTokens',
         {
-           refreshToken: $refreshToken
+           refreshToken: localStorage.getItem("refreshToken") && localStorage.getItem("refreshToken")?.length !== 0 && $refreshToken.getState()
         })
-        .then((res) => {console.log(res);
+        .then((res) => {
         setaccessToken(res.data.accessToken)
         setrefreshToken(res.data.refreshToken)})
         .catch(() => [])
@@ -63,10 +60,10 @@ $axiosInstance.interceptors.response.use(
       // window.location.reload();
       throw error;
     }
-    else 
+    else if (error?.response?.status === 418)
     {
-      console.log(error.response.data.error);
-      toast.error(error.response.data.error)
+      toast.error(error.response.data.error);
     }
+    else toast.error("Ошибка ввода данных. Заполните все поля!");
   }
 );

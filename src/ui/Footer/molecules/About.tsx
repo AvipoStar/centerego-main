@@ -1,5 +1,5 @@
 import "../styles/FooterAbout.css"
-import In from "../../../common/assets/Icons/In.svg"
+import Vk from "../../../common/assets/Icons/Vk.svg"
 import Tg from "../../../common/assets/Icons/Tg.svg"
 
 export const FooterAbout = () => {
@@ -19,11 +19,11 @@ export const FooterAbout = () => {
                 Мы в социальных сетях
             </div>
             <div className="FooterAbout__LinkList">
-                <a target=" _blank" href="/">
+                <a target=" _blank" href="https://t.me/+jxfmLEsV7Yw4MTdi">
                     <img src={Tg} alt="Tg" />
                 </a>
-                <a target=" _blank" href="/">
-                    <img src={In} alt="In" />
+                <a target=" _blank" href="https://vk.com/maucppmicp">
+                    <img src={Vk} alt="In" />
                 </a>
             </div>
         </div>
