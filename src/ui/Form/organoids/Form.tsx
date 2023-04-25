@@ -54,7 +54,7 @@ export const Form = (params: IForm) => {
       <div className="Form__Absolute__Background" onClick={ () => params.setShow(false)}></div>
       <div className="Form__Absolute" >
         <div className="Form">
-          <FormTitle />
+          <FormTitle setShow={params.setShow} show={params.show}/>
           <FormDescription />
           <FormStarDescription />
           <FormStarBar value={value} setValue={setValue} />

@@ -65,9 +65,9 @@ export const MainForm = (params: IMainForm) => {
           });
         }
       })
-      .catch((err) => {
-        toast.error("Заявка не отправлена");
-      });
+      // .catch((err) => {
+      //   toast.error("Заявка не отправлена. Заполните все поля!");
+      // });
   };
 
   return (

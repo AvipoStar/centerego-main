@@ -7,6 +7,7 @@ import { BigImage } from "../../../ui/BigImage/organoids/BigImage";
 import { $axiosInstance, AuthResponse, setDataUser } from '../../../common/axio/axiosInstance2';
 import { $accessToken,setaccessToken } from "../../../common/axio/axiosInstance2"
 import { $refreshToken,setrefreshToken } from "../../../common/axio/axiosInstance2"
+import { toast } from "react-toastify";
 
 export const Registration = () => {
     const [userData, setData] = useState({ password: "", phone: "", email: "" })
@@ -19,18 +20,24 @@ const navigate = useNavigate();
     const Reg = () =>
     {
         $axiosInstance.post<AuthResponse>('members/registration', userData)
-        .then((res) => {console.log(res);
-        setaccessToken(Token)
-        setrefreshToken(RToken)
-        setDataUser( {emailOrPhone:userData.email ? userData.email : userData.phone})
+        .then((res:any) => 
+        {
+            console.log("res ",res);
+            if (res && res.data)
+            { 
+                setaccessToken(Token)
+                setrefreshToken(RToken)
+                setDataUser( {emailOrPhone:userData.email ? userData.email : userData.phone})
 
-        localStorage.setItem('accessToken', res.data.accessToken);
-        localStorage.setItem('refreshToken', res.data.refreshToken);
-        localStorage.setItem('emailOrPhone', userData.email ? userData.email : userData.phone);
+                localStorage.setItem('accessToken', res.data.accessToken);
+                localStorage.setItem('refreshToken', res.data.refreshToken);
+                localStorage.setItem('emailOrPhone', userData.email ? userData.email : userData.phone);
 
-        navigate("/");
+                navigate("/");
+            }
+            // else toast.error("Заполните все поля!")
     })
-        .catch(() => [])
+        
     }
 
     return (

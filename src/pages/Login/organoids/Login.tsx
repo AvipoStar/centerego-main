@@ -7,6 +7,7 @@ import { $axiosInstance, AuthResponse, setDataUser } from '../../../common/axio/
 import { $accessToken,setaccessToken } from "../../../common/axio/axiosInstance2"
 import { $refreshToken,setrefreshToken } from "../../../common/axio/axiosInstance2"
 import { error } from "console";
+import { toast } from "react-toastify";
 
     
 export const Login = () => {
@@ -32,10 +33,10 @@ export const Login = () => {
 
                 navigate("/")
             }
-            else console.log(res)
+            else toast.error("Неправильный логин или пароль!")
             }
         )
-        .catch((err) => console.log(err))
+        
     }
 
     return (

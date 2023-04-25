@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createStore, createEvent} from 'effector';
+import { toast } from "react-toastify";
 
 export const $accessToken = createStore("");
 export const setaccessToken= createEvent<string>();
@@ -59,9 +60,10 @@ $axiosInstance.interceptors.response.use(
       // window.location.reload();
       throw error;
     }
-    else 
+    else if (error?.response?.status === 418)
     {
-      console.log(error.response.data.error);
+      toast.error(error.response.data.error);
     }
+    else toast.error("Ошибка ввода данных. Заполните все поля!");
   }
 );

@@ -28,12 +28,13 @@ export const FormInputBar = (params: IFormInputBar) => {
       params.value.waitingTime == 0 ||
       params.value.willRecomend == 0)
     {
-      toast.error("Заполните все поля!")
+      // toast.error("Заполните все поля!")
     }
     else 
     {
       params.onClick({ ...params.value, "demandId": localDemand.demand.id}); 
       params.setShow(!params.show); 
+      toast.success("Спасибо за прохождение анкеты!")
     }
   }
 

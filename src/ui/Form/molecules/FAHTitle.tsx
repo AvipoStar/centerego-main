@@ -14,7 +14,8 @@ export const FAHTitle = (params: IFormAppHist) => {
         <div style={{display: "flex", justifyContent: "flex-end"}}>
         <CloseIcon 
           onClick={ () => params.setShowLK && params.setShowLK(false)} 
-          style={{cursor: "pointer", color: "#5c1b5e"}}/>
+          style={{cursor: "pointer", color: "#5c1b5e"}}
+          sx={{ fontSize: 40 }}/>
       </div >
        <div className="FormTitle">
           История заявок 
