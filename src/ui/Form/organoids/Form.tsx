@@ -8,8 +8,7 @@ import { FormTitle } from "../molecules/FormTitle";
 import "../styles/Form.css"
 import { $axiosInstance } from "../../../common/axio/axiosInstance2";
 import { toast } from "react-toastify";
-import { createEvent, createStore } from "effector";
-import { useStore } from "effector-react";
+
 export interface IForm {
   setShow: React.Dispatch<React.SetStateAction<boolean>>
   show: boolean

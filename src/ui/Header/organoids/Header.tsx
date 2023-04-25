@@ -7,9 +7,7 @@ import { Title } from "../molecules/Title";
 import "../styles/Header.css";
 import { useStore } from "effector-react";
 import { $DataUser } from "../../../common/axio/axiosInstance2";
-import { IMain } from "../../../pages/Main/organoids/Main";
-import { useEffect, useState } from 'react';
-import { createStore, createEvent } from "effector";
+
 interface IHeader {
   changePosition:any
   aboutRef: any;
@@ -25,11 +23,6 @@ export const Header = (params: IHeader) => {
   let location = useLocation();
   
   const dataUser = useStore($DataUser)
-
-  useEffect(()=>
-  {
-    console.log(dataUser?.emailOrPhone)
-  },[dataUser])
 
   return (
     <div className="Header">

@@ -1,11 +1,8 @@
-import { useState } from "react"
 import "../styles/FormInputBar.css"
-import { $axiosInstance } from "../../../common/axio/axiosInstance2"
 import { toast } from "react-toastify"
 import { $demand } from "./FAHTable";
 import { useStore } from "effector-react";
 import { DemandRating } from "../organoids/Form";
-import { Demand } from '../../../pages/Main/molecules/MainForm';
 
 export interface IFormInputBar {
   value: DemandRating

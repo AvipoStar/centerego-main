@@ -16,11 +16,6 @@ export const FormStarBar = (params:IFormStarBar) => {
     params.setValue({ ...params.value, [`${id}`]: rate }) 
   }
 
-  useEffect(() => {
-    console.log("rating", rating)
-    console.log("value", params.value)
-  }, [rating, params.value])
-
   return (
     <div className="FormStarBar">
       <div className="FormStarBar__Item">

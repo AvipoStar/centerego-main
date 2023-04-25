@@ -45,7 +45,7 @@ export const refreshTokens = () =>
         {
            refreshToken: localStorage.getItem("refreshToken") && localStorage.getItem("refreshToken")?.length !== 0 && $refreshToken.getState()
         })
-        .then((res) => {console.log(res);
+        .then((res) => {
         setaccessToken(res.data.accessToken)
         setrefreshToken(res.data.refreshToken)})
         .catch(() => [])

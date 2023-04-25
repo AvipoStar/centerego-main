@@ -2,19 +2,16 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useStore } from "effector-react"
 import "../styles/Registration.css"
-import RegistrationImage from "../../../common/assets/Registration/Registration.png"
 import { BigImage } from "../../../ui/BigImage/organoids/BigImage";
 import { $axiosInstance, AuthResponse, setDataUser } from '../../../common/axio/axiosInstance2';
 import { $accessToken,setaccessToken } from "../../../common/axio/axiosInstance2"
 import { $refreshToken,setrefreshToken } from "../../../common/axio/axiosInstance2"
-import { toast } from "react-toastify";
 
 export const Registration = () => {
-    const [userData, setData] = useState({ password: "", phone: "", email: "" })
+const [userData, setData] = useState({ password: "", phone: "", email: "" })
 
-    const Token = useStore($accessToken);
-    const RToken = useStore($refreshToken);
-    
+const Token = useStore($accessToken);
+const RToken = useStore($refreshToken);
     
 const navigate = useNavigate();
     const Reg = () =>
@@ -22,7 +19,6 @@ const navigate = useNavigate();
         $axiosInstance.post<AuthResponse>('members/registration', userData)
         .then((res:any) => 
         {
-            console.log("res ",res);
             if (res && res.data)
             { 
                 setaccessToken(Token)
@@ -35,11 +31,8 @@ const navigate = useNavigate();
 
                 navigate("/");
             }
-            // else toast.error("Заполните все поля!")
     })
-        
     }
-
     return (
         <div className="Registration">
             <div className="Registration__Data">

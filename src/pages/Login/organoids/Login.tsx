@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { useStore } from "effector-react"
 import { NavLink, useNavigate } from "react-router-dom"; 
 import "../styles/Login.css"
 import { BigImage } from "../../../ui/BigImage/organoids/BigImage";
 import { $axiosInstance, AuthResponse, setDataUser } from '../../../common/axio/axiosInstance2';
-import { $accessToken,setaccessToken } from "../../../common/axio/axiosInstance2"
-import { $refreshToken,setrefreshToken } from "../../../common/axio/axiosInstance2"
-import { error } from "console";
+import { setaccessToken } from "../../../common/axio/axiosInstance2"
+import { setrefreshToken } from "../../../common/axio/axiosInstance2"
 import { toast } from "react-toastify";
 
     
@@ -20,7 +18,7 @@ export const Login = () => {
             emailOrPhone: userData.emailOrPhone,
             password: userData.password
         })
-        .then((res) => {console.log(res);
+        .then((res) => {
             if (res && res.data)
             { 
                 setaccessToken(res.data.accessToken)

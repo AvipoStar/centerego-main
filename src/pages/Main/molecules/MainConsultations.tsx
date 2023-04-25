@@ -1,9 +1,7 @@
 import { useState } from "react";
-import {
-  IMainConsultationsItem,
-  MainConsultationsItem,
-} from "../atoms/MainConsultationsItem";
+import {  IMainConsultationsItem,  MainConsultationsItem,} from "../atoms/MainConsultationsItem";
 import "../styles/MainConsultations.css";
+
 export const MainConsultations = (params: { topicsRef: any }) => {
   const [MainConsultationsList, setMainConsultationsList] = useState<
     IMainConsultationsItem[]

@@ -31,14 +31,13 @@ export const FAHTable = (params: IFormAppHist) =>
     !params.show && 
       $axiosInstance.get<{demandsHistory:UserApplication[]}>('demands/getDemandsHistory')
       .then((res) => {setApplications(res.data.demandsHistory)})
-      .catch(()=> console.log("Ошибка"))
+      
   },[params.show]);
 
   const handleClick = (Questions:UserApplication) =>
   {
     setDemand(Questions);
     params.setShow(!params.show);
-    console.log(Questions);
   }
 
   return (

@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { FAHTitle } from "../molecules/FAHTitle";
 import { FAHTable } from "../molecules/FAHTable";
 import "../styles/FormAppHist.css";

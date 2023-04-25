@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/MainForm.css";
-import {
-  $accessToken,
-  $axiosInstance,
-} from "../../../common/axio/axiosInstance2";
+import { $axiosInstance,} from "../../../common/axio/axiosInstance2";
 import { toast } from "react-toastify";
-import axios from "axios";
 export interface IMainForm {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   show: boolean;
